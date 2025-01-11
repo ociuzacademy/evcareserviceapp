@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/pages/repair_request_details/widgets/request_status_stepper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -41,6 +42,8 @@ class RepairRequestDetails extends StatelessWidget {
         ),
         actions: [
           if (currentStatus == "Repair Requested") const Icon(Icons.build),
+          if (currentStatus == "Mechanic Assigned")
+            const Icon(Icons.restore_page),
           if (currentStatus == "Repair Completed") const Icon(Icons.payments),
           SizedBox(
             width: screenSize.width * 0.05,
@@ -191,6 +194,7 @@ class RepairRequestDetails extends StatelessWidget {
                       const Text(
                         "Latest Updated Date",
                         softWrap: true,
+                        textAlign: TextAlign.end,
                         style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
@@ -224,13 +228,14 @@ class RepairRequestDetails extends StatelessWidget {
                 fontSize: 25,
               ),
             ),
-            Text(
-              currentStatus,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            RequestStatusStepperWidget(
+              currentStatus: currentStatus,
+            ),
+            const Divider(
+              color: Colors.green,
             ),
             SizedBox(
               height: screenSize.height * 0.01,
