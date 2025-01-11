@@ -13,24 +13,21 @@ class PurchaseHistoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: ListView.separated(
-        itemCount: purchaseHistory.length,
-        itemBuilder: (context, index) {
-          return PurchaseHistoryTile(
-            customerName: purchaseHistory[index]['customerName'],
-            productName: purchaseHistory[index]['productName'],
-            purchaseDate:
-                purchaseHistory[index]['purchaseDate'] ?? DateTime.now(),
-            unitPrice: purchaseHistory[index]['unitPrice'] ?? 0.0,
-            productCost: purchaseHistory[index]['productCost'] ?? 0.0,
-            quantity: purchaseHistory[index]['quantity'] as int,
-          );
-        },
-        separatorBuilder: (context, index) => SizedBox(
-          height: screenSize.height / 1000,
-        ),
+    return ListView.separated(
+      itemCount: purchaseHistory.length,
+      itemBuilder: (context, index) {
+        return PurchaseHistoryTile(
+          customerName: purchaseHistory[index]['customerName'],
+          productName: purchaseHistory[index]['productName'],
+          purchaseDate:
+              purchaseHistory[index]['purchaseDate'] ?? DateTime.now(),
+          unitPrice: purchaseHistory[index]['unitPrice'] ?? 0.0,
+          productCost: purchaseHistory[index]['productCost'] ?? 0.0,
+          quantity: purchaseHistory[index]['quantity'] as int,
+        );
+      },
+      separatorBuilder: (context, index) => SizedBox(
+        height: screenSize.height / 1000,
       ),
     );
   }

@@ -13,5 +13,5 @@ flutter_native_splash:
 
   android_12:
     color: "#000000"
-    image: "assets/images/brand_logo.png"
-    branding: "assets/images/android_branding.png"
+    image: "assets/images/ev_care_logo.png"
+    branding: "assets/images/ev_care_branding.png"
