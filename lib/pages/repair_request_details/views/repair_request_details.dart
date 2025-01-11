@@ -1,0 +1,264 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class RepairRequestDetails extends StatelessWidget {
+  final String customerName;
+  final String vehicleNumber;
+  final String description;
+  final String mechanicName;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String currentStatus;
+  final double repairCost;
+  const RepairRequestDetails({
+    super.key,
+    required this.customerName,
+    required this.vehicleNumber,
+    required this.description,
+    required this.mechanicName,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.currentStatus,
+    required this.repairCost,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    final dateFormat = DateFormat("dd/MM/yyyy");
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text("Repair Request Details"),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        titleTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+        actions: [
+          if (currentStatus == "Repair Requested") const Icon(Icons.build),
+          if (currentStatus == "Repair Completed") const Icon(Icons.payments),
+          SizedBox(
+            width: screenSize.width * 0.05,
+          )
+        ],
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.035),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Customer Name:",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  customerName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Vehicle Number:",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  vehicleNumber,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            const Text(
+              "Complaint Description:",
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+            ),
+            Text(
+              description,
+              textAlign: TextAlign.justify,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            const Divider(
+              color: Colors.green,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Mechanic Name:",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  mechanicName,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            const Divider(
+              color: Colors.green,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: screenSize.width * 0.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Complaint Registered Date",
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                      Text(
+                        dateFormat.format(createdAt),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: screenSize.width * 0.4,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "Latest Updated Date",
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
+                      ),
+                      Text(
+                        dateFormat.format(updatedAt),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const Divider(
+              color: Colors.green,
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            const Text(
+              "Current Status:",
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+            ),
+            Text(
+              currentStatus,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+            SizedBox(
+              height: screenSize.height * 0.01,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Repair Cost:",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+                Text(
+                  "₹${repairCost.toStringAsFixed(2)}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
