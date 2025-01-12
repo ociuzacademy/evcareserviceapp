@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:evcareserviceapp/pages/home_screen/utils/helper.dart';
-import 'package:evcareserviceapp/pages/home_screen/widgets/home_page_widget.dart';
-import 'package:evcareserviceapp/pages/home_screen/widgets/product_list.dart';
-import 'package:evcareserviceapp/pages/home_screen/widgets/purchase_history_widget.dart';
-import 'package:evcareserviceapp/pages/home_screen/widgets/repair_requests_widget.dart';
+import 'package:evcareserviceapp/screens/home_screen/utils/helper.dart';
+import 'package:evcareserviceapp/screens/home_screen/widgets/home_page_widget.dart';
+import 'package:evcareserviceapp/screens/home_screen/widgets/product_list.dart';
+import 'package:evcareserviceapp/screens/home_screen/widgets/purchase_history_widget.dart';
+import 'package:evcareserviceapp/screens/home_screen/widgets/repair_requests_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

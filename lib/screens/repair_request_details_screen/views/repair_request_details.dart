@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/pages/repair_request_details/widgets/request_status_stepper_widget.dart';
+import 'package:evcareserviceapp/screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

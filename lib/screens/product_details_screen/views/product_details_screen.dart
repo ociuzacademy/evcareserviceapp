@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/pages/update_product/views/update_product_data.dart';
+import 'package:evcareserviceapp/screens/update_product_screen/views/update_product_data.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsScreen extends StatelessWidget {

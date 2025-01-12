@@ -1,6 +1,6 @@
-import 'package:evcareserviceapp/pages/add_to_store/views/add_to_store_screen.dart';
-import 'package:evcareserviceapp/pages/product_details/views/product_details_screen.dart';
-import 'package:evcareserviceapp/pages/home_screen/widgets/custom_list_tile.dart';
+import 'package:evcareserviceapp/screens/add_to_store_screen/views/add_to_store_screen.dart';
+import 'package:evcareserviceapp/screens/product_details_screen/views/product_details_screen.dart';
+import 'package:evcareserviceapp/screens/home_screen/widgets/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class ProductList extends StatelessWidget {

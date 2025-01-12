@@ -1,5 +1,5 @@
-import 'package:evcareserviceapp/pages/login_screen/views/login_screen.dart';
-import 'package:evcareserviceapp/pages/register_screen/widgets/register_form_widget.dart';
+import 'package:evcareserviceapp/screens/login_screen/views/login_screen.dart';
+import 'package:evcareserviceapp/screens/register_screen/widgets/register_form_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
