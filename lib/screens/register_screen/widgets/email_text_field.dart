@@ -1,25 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
-class FormTextField extends StatelessWidget {
-  final Icon textFieldIcon;
+class EmailTextField extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
-  final TextEditingController formTextController;
-  const FormTextField({
+  final TextEditingController emailTextController;
+  const EmailTextField({
     super.key,
-    required this.textFieldIcon,
     required this.hintText,
     this.validator,
-    required this.formTextController,
+    required this.emailTextController,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        prefixIcon: textFieldIcon,
+        prefixIcon: const Icon(Icons.email),
         hintText: hintText,
         filled: true, // Enable background color
         fillColor: Colors.white, // Set background color
@@ -69,9 +66,10 @@ class FormTextField extends StatelessWidget {
       ),
       style: const TextStyle(
         color: Colors.black,
-      ), // Input text color
+      ),
+      keyboardType: TextInputType.emailAddress,
       validator: validator,
-      controller: formTextController,
+      controller: emailTextController,
     );
   }
 }
