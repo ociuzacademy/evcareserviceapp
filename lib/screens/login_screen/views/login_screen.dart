@@ -1,5 +1,3 @@
-import 'package:evcareserviceapp/screens/home_screen/views/home_screen.dart';
-import 'package:evcareserviceapp/screens/register_screen/views/register_screen.dart';
 import 'package:evcareserviceapp/screens/login_screen/widgets/login_form_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -26,8 +24,6 @@ class LoginScreen extends StatelessWidget {
       body: const LoginFormWidget(
         imageUrl: "assets/images/login_page_image.png",
         bottomMessage: "If you dont have an account, ",
-        formRedirect: RegisterScreen(),
-        formDestination: HomeScreen(),
       ),
     );
   }

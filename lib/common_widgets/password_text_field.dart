@@ -1,26 +1,30 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
-class FormTextField extends StatelessWidget {
-  final Icon textFieldIcon;
+class PasswordTextField extends StatefulWidget {
   final String hintText;
   final String? Function(String?)? validator;
-  final TextEditingController formTextController;
-  const FormTextField({
+  final TextEditingController passwordTextController;
+  const PasswordTextField({
     super.key,
-    required this.textFieldIcon,
     required this.hintText,
     this.validator,
-    required this.formTextController,
+    required this.passwordTextController,
   });
+
+  @override
+  State<PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _obscureText = true; // Initially obscure the text
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        prefixIcon: textFieldIcon,
-        hintText: hintText,
+        prefixIcon: const Icon(Icons.password),
+        hintText: widget.hintText,
         filled: true, // Enable background color
         fillColor: Colors.white, // Set background color
         hintStyle: const TextStyle(
@@ -66,12 +70,23 @@ class FormTextField extends StatelessWidget {
             Radius.circular(8.0),
           ),
         ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText; // Toggle obscureText
+            });
+          },
+        ),
       ),
       style: const TextStyle(
         color: Colors.black,
       ), // Input text color
-      validator: validator,
-      controller: formTextController,
+      validator: widget.validator,
+      obscureText: _obscureText, // Bind to the state
+      controller: widget.passwordTextController,
     );
   }
 }
