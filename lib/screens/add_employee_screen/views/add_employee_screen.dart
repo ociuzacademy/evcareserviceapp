@@ -23,6 +23,15 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       TextEditingController();
 
   @override
+  void dispose() {
+    super.dispose();
+    _employeeNameController.dispose();
+    _employeeEmailController.dispose();
+    _employeePhoneNumberController.dispose();
+    _employeePasswordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 

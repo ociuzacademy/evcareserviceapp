@@ -19,9 +19,26 @@ class UpdateProductData extends StatefulWidget {
 
 class _UpdateProductDataState extends State<UpdateProductData> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _productPriceController = TextEditingController();
-  final TextEditingController _productQuantityController =
-      TextEditingController();
+  late TextEditingController _productPriceController;
+  late TextEditingController _productQuantityController;
+
+  @override
+  void initState() {
+    super.initState();
+    _productPriceController = TextEditingController(
+      text: widget.currentProductPrice.toStringAsFixed(2),
+    );
+    _productQuantityController = TextEditingController(
+      text: widget.currentProductQuantity.toString(),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _productPriceController.dispose();
+    _productQuantityController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +68,6 @@ class _UpdateProductDataState extends State<UpdateProductData> {
               child: Column(
                 children: [
                   FormTextFieldWithoutIcon(
-                    initialValue: widget.currentProductPrice.toStringAsFixed(2),
                     hintText: 'Enter new product price',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -66,7 +82,6 @@ class _UpdateProductDataState extends State<UpdateProductData> {
                     height: screenSize.height / 50,
                   ),
                   FormTextFieldWithoutIcon(
-                    initialValue: widget.currentProductQuantity.toString(),
                     hintText: 'Enter new product quantity',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
