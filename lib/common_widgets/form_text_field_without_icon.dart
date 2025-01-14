@@ -5,20 +5,17 @@ import 'package:flutter/material.dart';
 class FormTextFieldWithoutIcon extends StatelessWidget {
   final String hintText;
   final String? Function(String?)? validator;
-  final String? initialValue;
   final TextEditingController textEditingController;
   const FormTextFieldWithoutIcon({
     super.key,
     required this.hintText,
     this.validator,
-    this.initialValue,
     required this.textEditingController,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initialValue,
       controller: textEditingController,
       decoration: InputDecoration(
         hintText: hintText,

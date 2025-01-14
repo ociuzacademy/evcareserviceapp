@@ -24,6 +24,15 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
   bool isImageSelected = false;
   File? imageFile;
 
+  @override
+  void dispose() {
+    super.dispose();
+    _productNameController.dispose();
+    _productDescriptionController.dispose();
+    _productPriceController.dispose();
+    _productQuantityController.dispose();
+  }
+
   Future<void> _showErrorDialogue(String message) async {
     return showDialog(
       context: context,
