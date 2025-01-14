@@ -14,6 +14,8 @@ class AddEmployeeScreen extends StatefulWidget {
 
 class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _employeeUsernameController =
+      TextEditingController();
   final TextEditingController _employeeNameController = TextEditingController();
   final TextEditingController _employeeEmailController =
       TextEditingController();
@@ -25,6 +27,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   @override
   void dispose() {
     super.dispose();
+    _employeeUsernameController.dispose();
     _employeeNameController.dispose();
     _employeeEmailController.dispose();
     _employeePhoneNumberController.dispose();
@@ -59,6 +62,20 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
               key: _formKey,
               child: Column(
                 children: [
+                  SizedBox(
+                    height: screenSize.height / 50,
+                  ),
+                  FormTextFieldWithoutIcon(
+                    hintText: 'Enter employee username',
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter employee username';
+                      }
+
+                      return null;
+                    },
+                    textEditingController: _employeeUsernameController,
+                  ),
                   SizedBox(
                     height: screenSize.height / 50,
                   ),
