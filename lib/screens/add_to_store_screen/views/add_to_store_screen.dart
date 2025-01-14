@@ -14,6 +14,13 @@ class AddToStoreScreen extends StatefulWidget {
 
 class _AddToStoreScreenState extends State<AddToStoreScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _productNameController = TextEditingController();
+  final TextEditingController _productDescriptionController =
+      TextEditingController();
+  final TextEditingController _productPriceController = TextEditingController();
+  final TextEditingController _productQuantityController =
+      TextEditingController();
+
   bool isImageSelected = false;
   File? imageFile;
 
@@ -76,7 +83,7 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Product'),
+        title: const Text('Add New Product'),
         backgroundColor: Colors.black,
         centerTitle: true,
         titleTextStyle: const TextStyle(
@@ -105,11 +112,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
                     hintText: 'Enter product name',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter product name';
                       }
 
                       return null;
                     },
+                    textEditingController: _productNameController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
@@ -118,11 +126,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
                     hintText: 'Enter product description',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter product description';
                       }
 
                       return null;
                     },
+                    textEditingController: _productDescriptionController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
@@ -131,11 +140,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
                     hintText: 'Enter product price',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter product price';
                       }
 
                       return null;
                     },
+                    textEditingController: _productPriceController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
@@ -144,11 +154,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
                     hintText: 'Enter product quantity',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter product quantity';
                       }
 
                       return null;
                     },
+                    textEditingController: _productQuantityController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,

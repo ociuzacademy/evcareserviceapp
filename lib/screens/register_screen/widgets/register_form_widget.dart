@@ -110,8 +110,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   }
 
   Future<void> _registerServiceCenter() async {
-    print('Form validated: ${_formKey.currentState!.validate()}');
-    print('Latitude: $_latitude, Longitude: $_longitude');
     if (_formKey.currentState!.validate() &&
         _latitude != null &&
         _longitude != null) {
@@ -131,9 +129,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
             longitude: _longitude ?? 0.0,
           ),
         );
-        print('API Response: $response');
         bool status = response.status == "success";
-        print('Registration status: $status');
 
         if (status && mounted) {
           // Use context here because mounted is true
@@ -145,7 +141,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           );
         }
       } catch (e) {
-        print('Registration error: $e');
         if (mounted) {
           // Use context here because mounted is true
           ScaffoldMessenger.of(context).showSnackBar(

@@ -19,6 +19,9 @@ class UpdateProductData extends StatefulWidget {
 
 class _UpdateProductDataState extends State<UpdateProductData> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _productPriceController = TextEditingController();
+  final TextEditingController _productQuantityController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +55,12 @@ class _UpdateProductDataState extends State<UpdateProductData> {
                     hintText: 'Enter new product price',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter new product price';
                       }
 
                       return null;
                     },
+                    textEditingController: _productPriceController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
@@ -66,11 +70,12 @@ class _UpdateProductDataState extends State<UpdateProductData> {
                     hintText: 'Enter new product quantity',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter new product quantity';
                       }
 
                       return null;
                     },
+                    textEditingController: _productQuantityController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
