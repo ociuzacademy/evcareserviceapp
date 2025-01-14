@@ -1,14 +1,28 @@
 import 'dart:math';
-
 import 'package:evcareserviceapp/screens/home_screen/utils/helper.dart';
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/screens/home_screen/widgets/home_page_widget.dart';
 import 'package:evcareserviceapp/screens/home_screen/widgets/product_list.dart';
 import 'package:evcareserviceapp/screens/home_screen/widgets/purchase_history_widget.dart';
 import 'package:evcareserviceapp/screens/home_screen/widgets/repair_requests_widget.dart';
-import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  static List<Map<String, dynamic>> employees = List.generate(
+    10,
+    (index) {
+      final random = Random();
+      return {
+        "id": index,
+        "employeeName": "Employee - ${index + 1}",
+        "email": Helper.generateRandomEmail(),
+        "phoneNumber": Helper.generateRandomIndianMobileNumber(),
+        "isPresent": random.nextBool()
+      };
+    },
+  );
 
   static List<Map<String, dynamic>> products = List.generate(
     20,
@@ -34,7 +48,7 @@ class HomeScreen extends StatefulWidget {
       final randomIndex = random.nextInt(products.length);
       final Map<String, dynamic> product = products[randomIndex];
       final int quantity = random.nextInt(10);
-      final DateTime date = generateRandomDate();
+      final DateTime date = Helper.generateRandomDate();
       return {
         "id": index,
         "customerName": "Customer - ${index + 1}",
@@ -51,10 +65,10 @@ class HomeScreen extends StatefulWidget {
     20,
     (index) {
       final random = Random();
-      final String vehicleNumber = generateKeralaVehicleNumber();
+      final String vehicleNumber = Helper.generateKeralaVehicleNumber();
       const String description =
           "Lorem ipsum dolor sit amet. Aut blanditiis enim est possimus nihil quo deserunt distinctio sit adipisci voluptas nam unde consequatur et consequuntur illo eos commodi explicabo. Et quae alias eum laborum omnis ut nostrum adipisci et possimus sequi eos reiciendis corporis qui ullam magni vel quia sunt.";
-      final DateTime createdAt = generateRandomDate();
+      final DateTime createdAt = Helper.generateRandomDate();
       const List<String> statuses = [
         "Repair Requested",
         "Mechanic Assigned",
@@ -88,24 +102,42 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final PageController _pageController = PageController();
 
-  final List<Widget> _appBodies = [
-    const Center(child: HomePageWidget()),
-    Center(
-      child: ProductList(
-        products: HomeScreen.products,
+  late List<Map<String, dynamic>> presentEmployees;
+  late List<Widget> _appBodies;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize present employees
+    presentEmployees = HomeScreen.employees
+        .where((employee) => employee["isPresent"] == true)
+        .toList();
+
+    // Initialize app bodies
+    _appBodies = [
+      Center(
+        child: HomePageWidget(
+          employees: presentEmployees,
+          totalNumberOfEmployees: HomeScreen.employees.length,
+        ),
       ),
-    ),
-    Center(
-      child: PurchaseHistoryWidget(
-        purchaseHistory: HomeScreen.purchaseHistory,
+      Center(
+        child: ProductList(
+          products: HomeScreen.products,
+        ),
       ),
-    ),
-    Center(
-      child: RepairRequestsWidget(
-        repairRequests: HomeScreen.repairRequests,
+      Center(
+        child: PurchaseHistoryWidget(
+          purchaseHistory: HomeScreen.purchaseHistory,
+        ),
       ),
-    ),
-  ];
+      Center(
+        child: RepairRequestsWidget(
+          repairRequests: HomeScreen.repairRequests,
+        ),
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
