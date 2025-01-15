@@ -2,12 +2,89 @@
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/views/repair_request_details.dart';
 import 'package:flutter/material.dart';
 
-class RepairRequestsWidget extends StatelessWidget {
+enum RequestOption {
+  all(
+    "All",
+    "All",
+  ),
+  repairRequested(
+    "Repair Requested",
+    "Repair Requested",
+  ),
+  mechanicAssigned(
+    "Mechanic Assigned",
+    "Mechanic Assigned",
+  ),
+  repairCompleted(
+    "Repair Completed",
+    "Repair Completed",
+  ),
+  vehicleDelivered("Vehicle Delivered", "Vehicle Delivered");
+
+  const RequestOption(this.label, this.value);
+  final String label;
+  final String value;
+}
+
+class RepairRequestsWidget extends StatefulWidget {
   final List<Map<String, dynamic>> repairRequests;
+
   const RepairRequestsWidget({
     super.key,
     required this.repairRequests,
   });
+
+  @override
+  State<RepairRequestsWidget> createState() => _RepairRequestsWidgetState();
+}
+
+class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
+  RequestOption currentOption = RequestOption.all;
+  late List<Map<String, dynamic>> displayingRepairRequests;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateDisplayingRepairRequests();
+  }
+
+  void _updateDisplayingRepairRequests() {
+    setState(() {
+      switch (currentOption) {
+        case RequestOption.repairRequested:
+          displayingRepairRequests = widget.repairRequests
+              .where((request) =>
+                  request['currentStatus'] ==
+                  RequestOption.repairRequested.value)
+              .toList();
+          break;
+        case RequestOption.mechanicAssigned:
+          displayingRepairRequests = widget.repairRequests
+              .where((request) =>
+                  request['currentStatus'] ==
+                  RequestOption.mechanicAssigned.value)
+              .toList();
+          break;
+        case RequestOption.repairCompleted:
+          displayingRepairRequests = widget.repairRequests
+              .where((request) =>
+                  request['currentStatus'] ==
+                  RequestOption.repairCompleted.value)
+              .toList();
+          break;
+        case RequestOption.vehicleDelivered:
+          displayingRepairRequests = widget.repairRequests
+              .where((request) =>
+                  request['currentStatus'] ==
+                  RequestOption.vehicleDelivered.value)
+              .toList();
+          break;
+        default:
+          displayingRepairRequests = widget.repairRequests;
+          break;
+      }
+    });
+  }
 
   Icon getRepairRequestStatusIcon(String icon) {
     switch (icon) {
@@ -37,65 +114,105 @@ class RepairRequestsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return ListView.separated(
-      padding: EdgeInsets.symmetric(
-        horizontal: screenSize.width * 0.05,
-      ),
-      itemCount: repairRequests.length,
-      itemBuilder: (context, index) {
-        return InkWell(
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => RepairRequestDetails(
-                customerName: repairRequests[index]['customerName'],
-                vehicleNumber: repairRequests[index]['vehicleNumber'],
-                description: repairRequests[index]['description'],
-                mechanicName: repairRequests[index]['mechanicName'],
-                createdAt: repairRequests[index]['createdAt'],
-                updatedAt: repairRequests[index]['updatedAt'],
-                currentStatus: repairRequests[index]['currentStatus'],
-                repairCost: repairRequests[index]['repairCost'],
-              ),
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: DropdownButton<RequestOption>(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.05,
             ),
-          ),
-          child: ListTile(
-            title: Text(
-              repairRequests[index]['customerName'],
-            ),
-            subtitle: Text(
-              repairRequests[index]['vehicleNumber'],
-            ),
-            leading: getRepairRequestStatusIcon(
-              repairRequests[index]['currentStatus'],
-            ),
-            tileColor: Colors.black,
-            titleAlignment: ListTileTitleAlignment.center,
-            titleTextStyle: const TextStyle(
+            isExpanded: true,
+            dropdownColor: Colors.green,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
-            subtitleTextStyle: const TextStyle(
-              color: Colors.grey,
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-            style: ListTileStyle.drawer,
-            shape: const RoundedRectangleBorder(
-              side: BorderSide(
-                color: Colors.green,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
+            value: currentOption,
+            items: RequestOption.values
+                .map<DropdownMenuItem<RequestOption>>((option) {
+              return DropdownMenuItem<RequestOption>(
+                value: option,
+                child: Text(option.label),
+              );
+            }).toList(),
+            onChanged: (RequestOption? newValue) {
+              if (newValue != null) {
+                setState(() {
+                  currentOption = newValue;
+                  _updateDisplayingRepairRequests();
+                });
+              }
+            },
           ),
-        );
-      },
-      separatorBuilder: (context, index) => SizedBox(
-        height: screenSize.height * 0.01,
-      ),
+        ),
+        SliverList.separated(
+          itemCount: displayingRepairRequests.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => RepairRequestDetails(
+                    customerName: displayingRepairRequests[index]
+                        ['customerName'],
+                    vehicleNumber: displayingRepairRequests[index]
+                        ['vehicleNumber'],
+                    description: displayingRepairRequests[index]['description'],
+                    mechanicName: displayingRepairRequests[index]
+                        ['mechanicName'],
+                    createdAt: displayingRepairRequests[index]['createdAt'],
+                    updatedAt: displayingRepairRequests[index]['updatedAt'],
+                    currentStatus: displayingRepairRequests[index]
+                        ['currentStatus'],
+                    repairCost: displayingRepairRequests[index]['repairCost'],
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: screenSize.width * 0.05,
+                ),
+                child: ListTile(
+                  title: Text(
+                    displayingRepairRequests[index]['customerName'],
+                  ),
+                  subtitle: Text(
+                    displayingRepairRequests[index]['vehicleNumber'],
+                  ),
+                  leading: getRepairRequestStatusIcon(
+                    displayingRepairRequests[index]['currentStatus'],
+                  ),
+                  tileColor: Colors.black,
+                  titleAlignment: ListTileTitleAlignment.center,
+                  titleTextStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  subtitleTextStyle: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  style: ListTileStyle.drawer,
+                  shape: const RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.green,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+          separatorBuilder: (context, index) => SizedBox(
+            height: screenSize.height * 0.01,
+          ),
+        ),
+      ],
     );
   }
 }
