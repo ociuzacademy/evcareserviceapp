@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/screens/assign_employee_screen/views/assign_employee_screen.dart';
 import 'package:evcareserviceapp/screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RepairRequestDetails extends StatelessWidget {
+class RepairRequestDetails extends StatefulWidget {
   final String customerName;
   final String vehicleNumber;
   final String description;
@@ -25,6 +26,51 @@ class RepairRequestDetails extends StatelessWidget {
   });
 
   @override
+  State<RepairRequestDetails> createState() => _RepairRequestDetailsState();
+}
+
+class _RepairRequestDetailsState extends State<RepairRequestDetails> {
+  Future<void> _showRepairCompleteDialogueBox() async {
+    if (mounted) {
+      return showDialog(
+        context: context,
+        builder: (BuildContext dialogueContext) {
+          return AlertDialog(
+            title: const Text("Repair Completed"),
+            backgroundColor: Colors.black,
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            content: const Text(
+              "Did you completed this repair request?",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(dialogueContext).pop();
+                },
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(dialogueContext).pop();
+                },
+                child: const Text("Submit"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     final dateFormat = DateFormat("dd/MM/yyyy");
@@ -41,10 +87,22 @@ class RepairRequestDetails extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         actions: [
-          if (currentStatus == "Repair Requested") const Icon(Icons.build),
-          if (currentStatus == "Mechanic Assigned")
-            const Icon(Icons.restore_page),
-          if (currentStatus == "Repair Completed") const Icon(Icons.payments),
+          if (widget.currentStatus == "Repair Requested")
+            InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const AssignEmployeeScreen(),
+              )),
+              child: const Icon(
+                Icons.build,
+              ),
+            ),
+          if (widget.currentStatus == "Mechanic Assigned")
+            InkWell(
+              onTap: _showRepairCompleteDialogueBox,
+              child: const Icon(
+                Icons.restore_page,
+              ),
+            ),
           SizedBox(
             width: screenSize.width * 0.05,
           )
@@ -66,15 +124,15 @@ class RepairRequestDetails extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
-                  customerName,
+                  widget.customerName,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 20,
                   ),
                 )
               ],
@@ -90,15 +148,15 @@ class RepairRequestDetails extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
-                  vehicleNumber,
+                  widget.vehicleNumber,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -114,16 +172,16 @@ class RepairRequestDetails extends StatelessWidget {
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
+                fontSize: 20,
               ),
             ),
             Text(
-              description,
+              widget.description,
               textAlign: TextAlign.justify,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 20,
               ),
             ),
             SizedBox(
@@ -140,15 +198,15 @@ class RepairRequestDetails extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
-                  mechanicName,
+                  widget.mechanicName,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -160,34 +218,34 @@ class RepairRequestDetails extends StatelessWidget {
               color: Colors.green,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: screenSize.width * 0.5,
+                  width: screenSize.width * 0.4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         "Complaint Registered Date",
-                        softWrap: true,
                         style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 20,
                         ),
                       ),
                       Text(
-                        dateFormat.format(createdAt),
+                        dateFormat.format(widget.createdAt),
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 20,
                         ),
                       ),
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: screenSize.width * 0.4,
+                  width: screenSize.width * 0.28,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -198,15 +256,15 @@ class RepairRequestDetails extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 20,
                         ),
                       ),
                       Text(
-                        dateFormat.format(updatedAt),
+                        dateFormat.format(widget.updatedAt),
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                          fontSize: 20,
                         ),
                       ),
                     ],
@@ -225,14 +283,14 @@ class RepairRequestDetails extends StatelessWidget {
               style: TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.bold,
-                fontSize: 25,
+                fontSize: 20,
               ),
             ),
             SizedBox(
               height: screenSize.height * 0.01,
             ),
             RequestStatusStepperWidget(
-              currentStatus: currentStatus,
+              currentStatus: widget.currentStatus,
             ),
             const Divider(
               color: Colors.green,
@@ -248,15 +306,15 @@ class RepairRequestDetails extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
-                  "₹${repairCost.toStringAsFixed(2)}",
+                  "₹${widget.repairCost.toStringAsFixed(2)}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 30,
+                    fontSize: 20,
                   ),
                 ),
               ],
