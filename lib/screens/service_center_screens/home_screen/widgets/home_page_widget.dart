@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/views/add_employee_screen.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/present_employee_container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/service_center_details.dart';
@@ -83,37 +84,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             ),
             SliverList.separated(
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    widget.employees[index]['employeeName'],
-                  ),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Email: ${widget.employees[index]['email']}"),
-                      Text("Phone: ${widget.employees[index]['phoneNumber']}"),
-                    ],
-                  ),
-                  titleTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  subtitleTextStyle: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  style: ListTileStyle.drawer,
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Colors.green,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
+                return PresentEmployeeContainer(
+                  employeeName: widget.employees[index]['employeeName'],
+                  email: widget.employees[index]['email'],
+                  phoneNumber: widget.employees[index]['phoneNumber'],
                 );
               },
               separatorBuilder: (context, index) {
