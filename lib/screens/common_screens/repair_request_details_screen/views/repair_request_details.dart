@@ -36,8 +36,9 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
         context: context,
         builder: (BuildContext dialogueContext) {
           return AlertDialog(
-            title: const Text("Repair Completed"),
+            title: const Text("Repair Complete"),
             backgroundColor: Colors.black,
+            surfaceTintColor: Colors.green.shade100,
             titleTextStyle: const TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -55,13 +56,25 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                 onPressed: () {
                   Navigator.of(dialogueContext).pop();
                 },
-                child: const Text("Cancel"),
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(
+                    color: Colors.redAccent,
+                    fontSize: 15,
+                  ),
+                ),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(dialogueContext).pop();
                 },
-                child: const Text("Submit"),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(
+                    color: Colors.greenAccent,
+                    fontSize: 15,
+                  ),
+                ),
               ),
             ],
           );
