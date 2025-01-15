@@ -13,26 +13,30 @@ class LoginDataModel {
   String? status;
   String? message;
   String? utype;
-  int? userId;
+  String? serviceCentreId;
+  String? employeeId;
 
   LoginDataModel({
     this.status,
     this.message,
     this.utype,
-    this.userId,
+    this.serviceCentreId,
+    this.employeeId,
   });
 
   factory LoginDataModel.fromJson(Map<String, dynamic> json) => LoginDataModel(
         status: json["status"],
         message: json["message"],
         utype: json["utype"],
-        userId: json["user_id"],
+        serviceCentreId: json["service_centre_id"],
+        employeeId: json["employee_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
         "utype": utype,
-        "user_id": userId,
+        "service_centre_id": serviceCentreId,
+        "employee_id": employeeId,
       };
 }
