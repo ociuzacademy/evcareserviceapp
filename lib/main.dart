@@ -1,4 +1,4 @@
-import 'package:evcareserviceapp/screens/introduction_screen/views/on_boarding_widget.dart';
+import 'package:evcareserviceapp/screens/common_screens/introduction_screen/views/on_boarding_widget.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_native_splash/flutter_native_splash.dart';
 
