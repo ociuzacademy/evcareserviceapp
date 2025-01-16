@@ -1,13 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/views/assign_employee_screen.dart';
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/views/assign_employee_screen.dart';
 
 class RepairRequestDetails extends StatefulWidget {
   final String customerName;
   final String vehicleNumber;
   final String description;
+  final int mechanicId;
   final String mechanicName;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -18,6 +20,7 @@ class RepairRequestDetails extends StatefulWidget {
     required this.customerName,
     required this.vehicleNumber,
     required this.description,
+    required this.mechanicId,
     required this.mechanicName,
     required this.createdAt,
     required this.updatedAt,
@@ -203,33 +206,62 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
             const Divider(
               color: Colors.green,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Mechanic Name:",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+            if (widget.mechanicName.isNotEmpty)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Mechanic ID:",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        widget.mechanicId.toString(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                Text(
-                  widget.mechanicName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            const Divider(
-              color: Colors.green,
-            ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      const Text(
+                        "Mechanic Name:",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        widget.mechanicName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            if (widget.mechanicName.isNotEmpty)
+              SizedBox(
+                height: screenSize.height * 0.01,
+              ),
+            if (widget.mechanicName.isNotEmpty)
+              const Divider(
+                color: Colors.green,
+              ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -158,6 +158,7 @@ class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
                     vehicleNumber: displayingRepairRequests[index]
                         ['vehicleNumber'],
                     description: displayingRepairRequests[index]['description'],
+                    mechanicId: displayingRepairRequests[index]['mechanicId'],
                     mechanicName: displayingRepairRequests[index]
                         ['mechanicName'],
                     createdAt: displayingRepairRequests[index]['createdAt'],

@@ -79,11 +79,13 @@ class HomeScreen extends StatefulWidget {
       final DateTime updatedAt = createdAt.add(Duration(days: selectedIndex));
       final String currentStatus = statuses[selectedIndex];
       final double repairCost = random.nextDouble() * 1000;
+      final int mechanicId = selectedIndex == 0 ? 0 : random.nextInt(10);
       final String mechanicName = selectedIndex == 0 ? "" : "Mechanic - $index";
       return {
         "customerName": "Customer - ${index + 1}",
         "vehicleNumber": vehicleNumber,
         "description": description,
+        "mechanicId": mechanicId,
         "mechanicName": mechanicName,
         "createdAt": createdAt,
         "updatedAt": updatedAt,
