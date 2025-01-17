@@ -1,0 +1,54 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:evcareserviceapp/common_utils/urls.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/models/add_employee_response_model.dart';
+
+Future<AddEmployeeResponseModel> addEmployee({
+  required String username,
+  required String employeeName,
+  required String email,
+  required String phoneNumber,
+  required String password,
+  required String serviceCenterId,
+}) async {
+  try {
+    Map<String, dynamic> params = {
+      "username": username,
+      "name": employeeName,
+      "email": email,
+      "phone_number": phoneNumber,
+      "password": password,
+      "service_centre": int.parse(serviceCenterId),
+    };
+
+    final resp = await http.post(
+      Uri.parse(Urls.addEmployeeUrl),
+      body: jsonEncode(params),
+      headers: <String, String>{
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    );
+
+    if (resp.statusCode == 200) {
+      final dynamic decoded = jsonDecode(resp.body);
+      final AddEmployeeResponseModel response =
+          AddEmployeeResponseModel.fromJson(decoded);
+      return response;
+    } else {
+      final Map<String, dynamic> errorResponse = jsonDecode(resp.body);
+      throw Exception(
+        'Failed to add employee: ${errorResponse['message'] ?? 'Unknown error'}',
+      );
+    }
+  } on SocketException {
+    throw Exception('No Internet connection');
+  } on HttpException {
+    throw Exception('Server error');
+  } on FormatException {
+    throw Exception('Bad response format');
+  } catch (e) {
+    throw Exception('Unexpected error: ${e.toString()}');
+  }
+}

@@ -4,4 +4,5 @@ class Urls {
 
   static const String registerUrl = "$serviceUrl/service_register/";
   static const String loginUrl = "$serviceUrl/login/";
+  static const String addEmployeeUrl = "$serviceUrl/add_employee/";
 }
