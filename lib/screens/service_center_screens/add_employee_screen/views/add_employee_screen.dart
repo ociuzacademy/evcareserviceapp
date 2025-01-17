@@ -66,7 +66,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
           final errorMessage = e.toString();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("Error: $errorMessage"),
+              content: Text("Adding new employee failed due to $errorMessage"),
             ),
           );
         }
