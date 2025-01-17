@@ -133,7 +133,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
 
         if (status && mounted) {
           // Use context here because mounted is true
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Registration success")),
+          );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (context) => const LoginScreen(),
@@ -143,8 +145,11 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       } catch (e) {
         if (mounted) {
           // Use context here because mounted is true
+          final errorMessage = e.toString();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Registration failed")),
+            SnackBar(
+              content: Text("Registration failed due to $errorMessage."),
+            ),
           );
         }
       } finally {

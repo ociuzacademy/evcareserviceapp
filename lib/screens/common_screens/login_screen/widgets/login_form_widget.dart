@@ -49,6 +49,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           password: _passwordController.text,
         );
         if (response.status == "success" && mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Login success.'),
+            ),
+          );
           if (response.utype == "service_centre") {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
@@ -66,8 +71,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       } catch (e) {
         // Handle the error, e.g., show a snackbar
         if (mounted) {
+          final errorMessage = e.toString();
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Login failed")),
+            SnackBar(content: Text("Login failed due to $errorMessage.")),
           );
         }
       } finally {

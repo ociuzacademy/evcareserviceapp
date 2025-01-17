@@ -30,7 +30,7 @@ Future<LoginDataModel> userLogin({
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);
       throw Exception(
-        'Failed to register: ${errorResponse['message'] ?? 'Unknown error'}',
+        'Failed to login: ${errorResponse['message'] ?? 'Unknown error'}',
       );
     }
   } on SocketException {
