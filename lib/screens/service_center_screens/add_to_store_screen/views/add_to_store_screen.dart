@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
+import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/services/add_product.dart';
 import 'package:flutter/material.dart';
@@ -185,7 +186,7 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
                         SizedBox(
                           height: screenSize.height / 50,
                         ),
-                        FormTextFieldWithoutIcon(
+                        NumberTextFieldWithoutIcon(
                           hintText: 'Enter product price',
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
@@ -194,12 +195,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
 
                             return null;
                           },
-                          textEditingController: _productPriceController,
+                          numberEditingController: _productPriceController,
                         ),
                         SizedBox(
                           height: screenSize.height / 50,
                         ),
-                        FormTextFieldWithoutIcon(
+                        NumberTextFieldWithoutIcon(
                           hintText: 'Enter product quantity',
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
@@ -208,7 +209,7 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
 
                             return null;
                           },
-                          textEditingController: _productQuantityController,
+                          numberEditingController: _productQuantityController,
                         ),
                         SizedBox(
                           height: screenSize.height / 50,
