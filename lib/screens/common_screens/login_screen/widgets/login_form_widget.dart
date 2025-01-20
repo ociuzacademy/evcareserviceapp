@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/common_widgets/password_text_field.dart';
@@ -72,8 +73,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         // Handle the error, e.g., show a snackbar
         if (mounted) {
           final errorMessage = e.toString();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Login failed due to $errorMessage.")),
+          showErrorDialogue(
+            context,
+            "Login failed due to $errorMessage.",
           );
         }
       } finally {
@@ -83,10 +85,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please fill all fields.'),
-          ),
+        showErrorDialogue(
+          context,
+          "Please fill all fields.",
         );
       }
     }

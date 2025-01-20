@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/services/add_product.dart';
@@ -35,46 +36,6 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
     _productQuantityController.dispose();
   }
 
-  Future<void> _showErrorDialogue(String message) async {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Error"),
-          backgroundColor: Colors.black,
-          surfaceTintColor: Colors.green.shade100,
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          content: Text(
-            message,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text(
-                "OK",
-                style: TextStyle(
-                  color: Colors.greenAccent,
-                  fontSize: 15,
-                ),
-              ),
-            )
-          ],
-        );
-      },
-    );
-  }
-
   _pickImageFromGallary() async {
     try {
       final XFile? pickedImage =
@@ -87,7 +48,9 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
       }
     } catch (e) {
       // print('Error: ${e.toString()}');
-      _showErrorDialogue('Error: ${e.toString()}');
+      if (mounted) {
+        showErrorDialogue(context, 'Error: ${e.toString()}');
+      }
     }
   }
 
@@ -104,7 +67,9 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
       }
     } catch (e) {
       // print('Error: ${e.toString()}');
-      _showErrorDialogue('Error: ${e.toString()}');
+      if (mounted) {
+        showErrorDialogue(context, 'Error: ${e.toString()}');
+      }
     }
   }
 
@@ -134,16 +99,25 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
           Navigator.of(context).pop();
         }
       } catch (e) {
-        _showErrorDialogue(e.toString());
+        if (mounted) {
+          final errorMessage = e.toString();
+          showErrorDialogue(
+            context,
+            "Adding new employee failed due to $errorMessage",
+          );
+        }
       } finally {
         setState(() {
           _isAddingProduct = false;
         });
       }
     } else {
-      _showErrorDialogue(
-        "Please enter all the fields and select an image from either camera or gallery",
-      );
+      if (mounted) {
+        showErrorDialogue(
+          context,
+          "Please enter all the fields and select an image from either camera or gallery",
+        );
+      }
     }
   }
 
