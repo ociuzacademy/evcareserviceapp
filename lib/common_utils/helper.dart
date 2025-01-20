@@ -10,12 +10,12 @@ Future<void> showErrorDialogue(BuildContext context, String message) async {
         backgroundColor: Colors.black,
         surfaceTintColor: Colors.green.shade100,
         titleTextStyle: const TextStyle(
-          color: Colors.white,
+          color: Colors.red,
           fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
         content: Text(
-          message,
+          message.toUpperCase(),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 15,
@@ -29,7 +29,7 @@ Future<void> showErrorDialogue(BuildContext context, String message) async {
             child: const Text(
               "OK",
               style: TextStyle(
-                color: Colors.greenAccent,
+                color: Colors.redAccent,
                 fontSize: 15,
               ),
             ),
