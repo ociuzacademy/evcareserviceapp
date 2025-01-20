@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:flutter/material.dart';
 
-import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 
 class UpdateProductData extends StatefulWidget {
@@ -67,7 +67,7 @@ class _UpdateProductDataState extends State<UpdateProductData> {
               key: _formKey,
               child: Column(
                 children: [
-                  FormTextFieldWithoutIcon(
+                  NumberTextFieldWithoutIcon(
                     hintText: 'Enter new product price',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -76,12 +76,12 @@ class _UpdateProductDataState extends State<UpdateProductData> {
 
                       return null;
                     },
-                    textEditingController: _productPriceController,
+                    numberEditingController: _productPriceController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,
                   ),
-                  FormTextFieldWithoutIcon(
+                  NumberTextFieldWithoutIcon(
                     hintText: 'Enter new product quantity',
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -90,7 +90,7 @@ class _UpdateProductDataState extends State<UpdateProductData> {
 
                       return null;
                     },
-                    textEditingController: _productQuantityController,
+                    numberEditingController: _productQuantityController,
                   ),
                   SizedBox(
                     height: screenSize.height / 50,

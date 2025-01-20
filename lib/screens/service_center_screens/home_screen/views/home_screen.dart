@@ -123,10 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
           totalNumberOfEmployees: HomeScreen.employees.length,
         ),
       ),
-      Center(
-        child: ProductList(
-          products: HomeScreen.products,
-        ),
+      const Center(
+        child: ProductList(),
       ),
       Center(
         child: PurchaseHistoryWidget(
