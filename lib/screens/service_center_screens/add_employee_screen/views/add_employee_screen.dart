@@ -1,3 +1,4 @@
+import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/service/add_employee.dart';
@@ -64,10 +65,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
         // Handle the error, e.g., show a snackbar
         if (mounted) {
           final errorMessage = e.toString();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Adding new employee failed due to $errorMessage"),
-            ),
+          showErrorDialogue(
+            context,
+            "Adding new employee failed due to $errorMessage",
           );
         }
       } finally {
@@ -77,10 +77,9 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       }
     } else {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please fill all fields.'),
-          ),
+        showErrorDialogue(
+          context,
+          "Please fill all fields.",
         );
       }
     }

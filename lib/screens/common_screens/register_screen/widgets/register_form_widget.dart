@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -146,10 +147,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         if (mounted) {
           // Use context here because mounted is true
           final errorMessage = e.toString();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Registration failed due to $errorMessage."),
-            ),
+          showErrorDialogue(
+            context,
+            "Registration failed due to $errorMessage.",
           );
         }
       } finally {
@@ -162,10 +162,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     } else {
       if (mounted) {
         // Use context here because this is synchronous
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please fill all fields and get location'),
-          ),
+        showErrorDialogue(
+          context,
+          "Please fill all fields and get location",
         );
       }
     }
