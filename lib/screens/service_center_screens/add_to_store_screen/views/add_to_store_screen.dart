@@ -5,6 +5,7 @@ import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dar
 import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/services/add_product.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -97,7 +98,11 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("Adding new product success")),
           );
-          Navigator.of(context).pop();
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ),
+          );
         }
       } catch (e) {
         if (mounted) {

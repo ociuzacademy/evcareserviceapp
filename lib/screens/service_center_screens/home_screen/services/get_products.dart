@@ -5,9 +5,14 @@ import 'package:http/http.dart' as http;
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/product_model.dart';
 
-Future<List<ProductModel>> getProducts() async {
+Future<List<ProductModel>> getProducts(
+    {required String serviceCenterId}) async {
   try {
-    final url = Uri.parse(Urls.getProductsUrl);
+    Map<String, dynamic> params = {
+      "service_centre": serviceCenterId,
+    };
+
+    final url = Uri.parse(Urls.getProductsUrl).replace(queryParameters: params);
 
     final resp = await http.get(
       url,
@@ -23,7 +28,10 @@ Future<List<ProductModel>> getProducts() async {
 
       return response;
     } else {
-      throw Exception('Failed to load response');
+      final Map<String, dynamic> errorResponse = jsonDecode(resp.body);
+      throw Exception(
+        '${errorResponse['message'] ?? 'Unknown error'}',
+      );
     }
   } on SocketException {
     throw Exception('Server error');

@@ -49,7 +49,7 @@ Future<AddProductResponseModel> addProduct({
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(responseBody);
       throw Exception(
-        'Failed to register: ${errorResponse['message'] ?? 'Unknown error'}',
+        'Failed to add products: ${errorResponse['message'] ?? 'Unknown error'}',
       );
     }
   } on SocketException {
