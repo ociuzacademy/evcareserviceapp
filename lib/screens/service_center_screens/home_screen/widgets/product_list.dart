@@ -24,7 +24,7 @@ class ProductList extends StatelessWidget {
         child: const Icon(Icons.add),
       ),
       body: FutureBuilder<List<ProductModel>>(
-        future: getProducts(),
+        future: getProducts(serviceCenterId: "2"),
         builder: (context, snapshot) {
           // Loading State
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -38,27 +38,37 @@ class ProductList extends StatelessWidget {
           // Error State
           if (snapshot.hasError) {
             return Center(
-              child: Text(
-                "Error: ${snapshot.error}",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+              child: Column(
+                children: [
+                  Image.asset("assets/images/error_image.png"),
+                  Text(
+                    "${snapshot.error}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
               ),
             );
           }
 
           // Empty Response data array
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text(
-                "No products found",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
+            return Center(
+              child: Column(
+                children: [
+                  Image.asset("assets/images/empty.png"),
+                  const Text(
+                    "No products found",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                    ),
+                  ),
+                ],
               ),
             );
           }
@@ -69,7 +79,10 @@ class ProductList extends StatelessWidget {
             itemBuilder: (context, index) {
               ProductModel product = products[index];
               double price = double.parse(product.price ?? "0.0");
-              String imageUrl = "${Urls.baseUrl}/${product.imagePath ?? ""}";
+              // print(product.image == null);
+              String imageUrl = product.image == null
+                  ? "https://placehold.co/200x200?text=No+Image+Available"
+                  : "${Urls.baseUrl}/${product.image ?? ""}";
               return InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
@@ -101,12 +114,10 @@ class ProductList extends StatelessWidget {
                       leading: Hero(
                         tag: "hero-${product.id}",
                         child: Container(
-                          height: 200,
+                          height: screenSize.height * 0.25,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(
-                                imageUrl,
-                              ),
+                              image: NetworkImage(imageUrl), // Corrected here
                               fit: BoxFit.fitHeight,
                             ),
                             borderRadius: const BorderRadius.only(
@@ -128,7 +139,7 @@ class ProductList extends StatelessWidget {
                         "Price: ₹${price.toStringAsFixed(2)}",
                         style: const TextStyle(
                           color: Colors.grey,
-                          fontSize: 15,
+                          fontSize: 20,
                         ),
                       ),
                     ),
