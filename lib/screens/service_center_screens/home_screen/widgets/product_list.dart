@@ -87,13 +87,7 @@ class ProductList extends StatelessWidget {
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => ProductDetailsScreen(
-                      productName: product.name ?? "No name available",
-                      productDescription:
-                          product.description ?? "No description available",
-                      productPrice: double.parse(product.price ?? "0.0"),
-                      productQuantity: int.parse(product.quantity ?? "0"),
-                      productImage: imageUrl,
-                      productHeroId: "hero-${product.id}",
+                      productId: product.id ?? 0,
                     ),
                   ),
                 ),
