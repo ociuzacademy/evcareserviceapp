@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/product_model.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/purchase_history_model.dart';
 
-Future<List<ProductModel>> getProducts({
+Future<List<PurchaseHistoryModel>> getPurchaseHistory({
   required String serviceCenterId,
 }) async {
   try {
@@ -13,7 +13,8 @@ Future<List<ProductModel>> getProducts({
       "service_centre": serviceCenterId,
     };
 
-    final url = Uri.parse(Urls.getProductsUrl).replace(queryParameters: params);
+    final url =
+        Uri.parse(Urls.getPurchaseHistoryUrl).replace(queryParameters: params);
 
     final resp = await http.get(
       url,
@@ -25,7 +26,7 @@ Future<List<ProductModel>> getProducts({
     if (resp.statusCode == 200) {
       final List<dynamic> decoded = jsonDecode(resp.body);
       final response =
-          decoded.map((item) => ProductModel.fromJson(item)).toList();
+          decoded.map((item) => PurchaseHistoryModel.fromJson(item)).toList();
 
       return response;
     } else {

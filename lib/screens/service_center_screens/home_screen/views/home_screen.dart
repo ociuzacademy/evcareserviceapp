@@ -126,10 +126,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const Center(
         child: ProductList(),
       ),
-      Center(
-        child: PurchaseHistoryWidget(
-          purchaseHistory: HomeScreen.purchaseHistory,
-        ),
+      const Center(
+        child: PurchaseHistoryWidget(),
       ),
       Center(
         child: RepairRequestsWidget(

@@ -8,4 +8,6 @@ class Urls {
   static const String addProductUrl = "$serviceUrl/add_product/";
   static const String getProductsUrl = "$serviceUrl/view_products/";
   static const String getProductDetailsUrl = "$serviceUrl/view_single_product/";
+  static const String getPurchaseHistoryUrl =
+      "$serviceUrl/view_purchased_products/";
 }
