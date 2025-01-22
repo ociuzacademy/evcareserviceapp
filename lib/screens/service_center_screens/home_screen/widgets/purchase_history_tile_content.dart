@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
 class PurchaseHistoryTileContent extends StatelessWidget {
@@ -22,19 +20,29 @@ class PurchaseHistoryTileContent extends StatelessWidget {
         Text(
           item,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.grey,
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
         ),
         Text(
-          value,
+          _truncateString(value, 20), // Adjust the max length as needed
           style: const TextStyle(
             color: Colors.white,
             fontSize: 15,
           ),
+          overflow:
+              TextOverflow.ellipsis, // Ensures overflow is visually handled
         ),
       ],
     );
+  }
+
+  /// Helper method to truncate a string and add ellipsis if it exceeds maxLength
+  String _truncateString(String text, int maxLength) {
+    if (text.length > maxLength) {
+      return '${text.substring(0, maxLength)}...';
+    }
+    return text;
   }
 }
