@@ -171,6 +171,7 @@ class ProductDetailsScreen extends StatelessWidget {
                         onPressed: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => UpdateProductData(
+                              productId: productId,
                               currentProductPrice: price,
                               currentProductQuantity:
                                   int.parse(productItem.quantity ?? "0"),
