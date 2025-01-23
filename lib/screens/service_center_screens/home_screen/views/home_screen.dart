@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/utils/helper.dart';
 import 'package:flutter/material.dart';
 
@@ -135,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -222,6 +224,55 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
         children: _appBodies,
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.black,
+        child: ListView(
+          padding: const EdgeInsets.all(0),
+          children: [
+            SizedBox(
+              height: screenSize.height * 0.15,
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'My Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                // Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'LogOut',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
