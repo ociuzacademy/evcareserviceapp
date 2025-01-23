@@ -118,11 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // Initialize app bodies
     _appBodies = [
-      Center(
-        child: HomePageWidget(
-          employees: presentEmployees,
-          totalNumberOfEmployees: HomeScreen.employees.length,
-        ),
+      const Center(
+        child: HomePageWidget(),
       ),
       const Center(
         child: ProductList(),

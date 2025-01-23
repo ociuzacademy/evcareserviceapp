@@ -4,6 +4,8 @@ class Urls {
 
   static const String registerUrl = "$serviceUrl/service_register/";
   static const String loginUrl = "$serviceUrl/login/";
+  static const String getEmployeesDetailsListUrl =
+      "$serviceUrl/view_all_employees/";
   static const String addEmployeeUrl = "$serviceUrl/add_employee/";
   static const String addProductUrl = "$serviceUrl/add_product/";
   static const String updateProductUrl = "$serviceUrl/update_product/";
@@ -15,4 +17,5 @@ class Urls {
       "$serviceUrl/view_repair_requests/";
   static const String getRepairRequestItemUrl =
       "$serviceUrl/view_single_repair/";
+  static const String getEmployeesListUrl = "$serviceUrl/view_employees/";
 }
