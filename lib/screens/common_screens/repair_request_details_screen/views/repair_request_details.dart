@@ -1,31 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/single_repair_details.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/details_row.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/repair_dates_display_widget.dart';
 
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/models/repair_request_item_model.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/get_repair_request_item.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/views/assign_employee_screen.dart';
 
 class RepairRequestDetails extends StatefulWidget {
-  final String customerName;
-  final String vehicleNumber;
-  final String description;
-  final int mechanicId;
-  final String mechanicName;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String currentStatus;
-  final double repairCost;
+  final String accountType;
+  final int repairRequestId;
   const RepairRequestDetails({
     super.key,
-    required this.customerName,
-    required this.vehicleNumber,
-    required this.description,
-    required this.mechanicId,
-    required this.mechanicName,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.currentStatus,
-    required this.repairCost,
+    required this.accountType,
+    required this.repairRequestId,
   });
 
   @override
@@ -89,284 +79,240 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    final dateFormat = DateFormat("dd/MM/yyyy");
 
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text("Repair Request Details"),
-        backgroundColor: Colors.black,
-        centerTitle: true,
-        titleTextStyle: const TextStyle(
-          color: Colors.white,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-        actions: [
-          if (widget.currentStatus == "Repair Requested")
-            InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const AssignEmployeeScreen(),
-              )),
-              child: const Icon(
-                Icons.build,
-              ),
+    return FutureBuilder<RepairRequestItemModel>(
+      future: getRepairRequestItem(repairId: widget.repairRequestId),
+      builder: (context, snapshot) {
+        // Loading State
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.green,
             ),
-          if (widget.currentStatus == "Mechanic Assigned")
-            InkWell(
-              onTap: _showRepairCompleteDialogueBox,
-              child: const Icon(
-                Icons.restore_page,
-              ),
-            ),
-          SizedBox(
-            width: screenSize.width * 0.05,
-          )
-        ],
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.035),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          );
+        }
+
+        // Error State
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
               children: [
-                const Text(
-                  "Customer Name:",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
+                Image.asset("assets/images/error_image.png"),
                 Text(
-                  widget.customerName,
+                  "${snapshot.error}",
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Vehicle Number:",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  widget.vehicleNumber,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                    fontSize: 25,
                   ),
                 ),
               ],
             ),
-            const Divider(
-              color: Colors.green,
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            const Text(
-              "Complaint Description:",
-              style: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            Text(
-              widget.description,
-              textAlign: TextAlign.justify,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            const Divider(
-              color: Colors.green,
-            ),
-            if (widget.mechanicName.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Mechanic ID:",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        widget.mechanicId.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+          );
+        }
+
+        // Empty Response data array
+        if (!snapshot.hasData || snapshot.data == null) {
+          return Center(
+            child: Column(
+              children: [
+                Image.asset("assets/images/empty.png"),
+                const Text(
+                  "No repair request details found",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Text(
-                        "Mechanic Name:",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        widget.mechanicName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            if (widget.mechanicName.isNotEmpty)
+                ),
+              ],
+            ),
+          );
+        }
+
+        // Success State
+        RepairRequestItemModel repairRequestItem = snapshot.data!;
+        return Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            title: const Text("Repair Request Details"),
+            backgroundColor: Colors.black,
+            centerTitle: true,
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+            actions: [
+              if (widget.accountType == "owner" &&
+                  repairRequestItem.status == "Repair Requested")
+                InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AssignEmployeeScreen(),
+                  )),
+                  child: const Icon(
+                    Icons.build,
+                  ),
+                ),
+              if (widget.accountType == "employee" &&
+                  repairRequestItem.status == "Mechanic Assigned")
+                InkWell(
+                  onTap: _showRepairCompleteDialogueBox,
+                  child: const Icon(
+                    Icons.restore_page,
+                  ),
+                ),
               SizedBox(
-                height: screenSize.height * 0.01,
-              ),
-            if (widget.mechanicName.isNotEmpty)
-              const Divider(
-                color: Colors.green,
-              ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: screenSize.width * 0.4,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Complaint Registered Date",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        dateFormat.format(widget.createdAt),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                width: screenSize.width * 0.05,
+              )
+            ],
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+          ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.035),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: DetailsRow(
+                    title: "Customer Name:",
+                    details: repairRequestItem.userName,
                   ),
                 ),
-                SizedBox(
-                  width: screenSize.width * 0.28,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Text(
-                        "Latest Updated Date",
-                        softWrap: true,
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                      Text(
-                        dateFormat.format(widget.updatedAt),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DetailsRow(
+                    title: "Vehicle Number:",
+                    details: repairRequestItem.vehicleNum,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Divider(
+                    color: Colors.green,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Text(
+                    "Complaint Description:",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                SliverList.separated(
+                  itemBuilder: (context, index) => SingleRepairDetails(
+                    name: repairRequestItem.services[index].name,
+                    time: repairRequestItem.services[index].time,
+                    amount: repairRequestItem.services[index].amount,
+                  ),
+                  separatorBuilder: (context, index) => SizedBox(
+                    height: screenSize.height * 0.025,
+                  ),
+                  itemCount: repairRequestItem.services.length,
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Divider(
+                    color: Colors.green,
+                  ),
+                ),
+                if (repairRequestItem.employeeName.isNotEmpty)
+                  SliverToBoxAdapter(
+                    child: DetailsRow(
+                      title: "Mechanic Name:",
+                      details: repairRequestItem.employeeName,
+                    ),
+                  ),
+                if (repairRequestItem.employeeName.isNotEmpty)
+                  SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: screenSize.height * 0.01,
+                    ),
+                  ),
+                if (repairRequestItem.employeeName.isNotEmpty)
+                  const SliverToBoxAdapter(
+                    child: Divider(
+                      color: Colors.green,
+                    ),
+                  ),
+                SliverToBoxAdapter(
+                  child: RepairDatesDisplayWidget(
+                    createdAt: repairRequestItem.createdAt,
+                    updatedAt: repairRequestItem.updatedAt,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Divider(
+                    color: Colors.green,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Text(
+                    "Current Status:",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: RequestStatusStepperWidget(
+                    currentStatus: repairRequestItem.status,
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: Divider(
+                    color: Colors.green,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: screenSize.height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DetailsRow(
+                    title: "Repair Cost:",
+                    details: "₹${repairRequestItem.repairCost}",
                   ),
                 ),
               ],
             ),
-            const Divider(
-              color: Colors.green,
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            const Text(
-              "Current Status:",
-              style: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            RequestStatusStepperWidget(
-              currentStatus: widget.currentStatus,
-            ),
-            const Divider(
-              color: Colors.green,
-            ),
-            SizedBox(
-              height: screenSize.height * 0.01,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Repair Cost:",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  "₹${widget.repairCost.toStringAsFixed(2)}",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

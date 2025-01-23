@@ -11,4 +11,8 @@ class Urls {
   static const String getProductDetailsUrl = "$serviceUrl/view_single_product/";
   static const String getPurchaseHistoryUrl =
       "$serviceUrl/view_purchased_products/";
+  static const String getRepairRequestListUrl =
+      "$serviceUrl/view_repair_requests/";
+  static const String getRepairRequestItemUrl =
+      "$serviceUrl/view_single_repair/";
 }

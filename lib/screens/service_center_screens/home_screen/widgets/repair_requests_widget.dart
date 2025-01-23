@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/views/repair_request_details.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/repair_request_model.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_repair_requests.dart';
 import 'package:flutter/material.dart';
 
 enum RequestOption {
@@ -27,11 +29,8 @@ enum RequestOption {
 }
 
 class RepairRequestsWidget extends StatefulWidget {
-  final List<Map<String, dynamic>> repairRequests;
-
   const RepairRequestsWidget({
     super.key,
-    required this.repairRequests,
   });
 
   @override
@@ -40,50 +39,41 @@ class RepairRequestsWidget extends StatefulWidget {
 
 class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
   RequestOption currentOption = RequestOption.all;
-  late List<Map<String, dynamic>> displayingRepairRequests;
+  late Future<List<RepairRequestModel>> displayingRepairRequests;
 
   @override
   void initState() {
     super.initState();
-    _updateDisplayingRepairRequests();
+    displayingRepairRequests = getRepairRequests(serviceCentreId: 2);
   }
 
-  void _updateDisplayingRepairRequests() {
-    setState(() {
-      switch (currentOption) {
-        case RequestOption.repairRequested:
-          displayingRepairRequests = widget.repairRequests
-              .where((request) =>
-                  request['currentStatus'] ==
-                  RequestOption.repairRequested.value)
-              .toList();
-          break;
-        case RequestOption.mechanicAssigned:
-          displayingRepairRequests = widget.repairRequests
-              .where((request) =>
-                  request['currentStatus'] ==
-                  RequestOption.mechanicAssigned.value)
-              .toList();
-          break;
-        case RequestOption.repairCompleted:
-          displayingRepairRequests = widget.repairRequests
-              .where((request) =>
-                  request['currentStatus'] ==
-                  RequestOption.repairCompleted.value)
-              .toList();
-          break;
-        case RequestOption.vehicleDelivered:
-          displayingRepairRequests = widget.repairRequests
-              .where((request) =>
-                  request['currentStatus'] ==
-                  RequestOption.vehicleDelivered.value)
-              .toList();
-          break;
-        default:
-          displayingRepairRequests = widget.repairRequests;
-          break;
-      }
-    });
+  List<RepairRequestModel> _filterRequests(
+    List<RepairRequestModel> repairRequests,
+  ) {
+    switch (currentOption) {
+      case RequestOption.repairRequested:
+        return repairRequests
+            .where((request) =>
+                request.status == RequestOption.repairRequested.value)
+            .toList();
+      case RequestOption.mechanicAssigned:
+        return repairRequests
+            .where((request) =>
+                request.status == RequestOption.mechanicAssigned.value)
+            .toList();
+      case RequestOption.repairCompleted:
+        return repairRequests
+            .where((request) =>
+                request.status == RequestOption.repairCompleted.value)
+            .toList();
+      case RequestOption.vehicleDelivered:
+        return repairRequests
+            .where((request) =>
+                request.status == RequestOption.vehicleDelivered.value)
+            .toList();
+      default:
+        return repairRequests;
+    }
   }
 
   Icon getRepairRequestStatusIcon(String icon) {
@@ -114,106 +104,151 @@ class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: DropdownButton<RequestOption>(
-            padding: EdgeInsets.symmetric(
-              horizontal: screenSize.width * 0.05,
+    return FutureBuilder<List<RepairRequestModel>>(
+      future: displayingRepairRequests,
+      builder: (context, snapshot) {
+        // Loading State
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.green,
             ),
-            isExpanded: true,
-            dropdownColor: Colors.green,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            value: currentOption,
-            items: RequestOption.values
-                .map<DropdownMenuItem<RequestOption>>((option) {
-              return DropdownMenuItem<RequestOption>(
-                value: option,
-                child: Text(option.label),
-              );
-            }).toList(),
-            onChanged: (RequestOption? newValue) {
-              if (newValue != null) {
-                setState(() {
-                  currentOption = newValue;
-                  _updateDisplayingRepairRequests();
-                });
-              }
-            },
-          ),
-        ),
-        SliverList.separated(
-          itemCount: displayingRepairRequests.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RepairRequestDetails(
-                    customerName: displayingRepairRequests[index]
-                        ['customerName'],
-                    vehicleNumber: displayingRepairRequests[index]
-                        ['vehicleNumber'],
-                    description: displayingRepairRequests[index]['description'],
-                    mechanicId: displayingRepairRequests[index]['mechanicId'],
-                    mechanicName: displayingRepairRequests[index]
-                        ['mechanicName'],
-                    createdAt: displayingRepairRequests[index]['createdAt'],
-                    updatedAt: displayingRepairRequests[index]['updatedAt'],
-                    currentStatus: displayingRepairRequests[index]
-                        ['currentStatus'],
-                    repairCost: displayingRepairRequests[index]['repairCost'],
+          );
+        }
+
+        // Error State
+        if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              children: [
+                Image.asset("assets/images/error_image.png"),
+                Text(
+                  "${snapshot.error}",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
                   ),
                 ),
-              ),
-              child: Padding(
+              ],
+            ),
+          );
+        }
+
+        // Empty Response data array
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Center(
+            child: Column(
+              children: [
+                Image.asset("assets/images/empty.png"),
+                const Text(
+                  "No products found",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
+        // Success State
+        final List<RepairRequestModel> repairRequests = snapshot.data!;
+        final List<RepairRequestModel> filteredRequests =
+            _filterRequests(repairRequests);
+        return CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: DropdownButton<RequestOption>(
                 padding: EdgeInsets.symmetric(
                   horizontal: screenSize.width * 0.05,
                 ),
-                child: ListTile(
-                  title: Text(
-                    displayingRepairRequests[index]['customerName'],
-                  ),
-                  subtitle: Text(
-                    displayingRepairRequests[index]['vehicleNumber'],
-                  ),
-                  leading: getRepairRequestStatusIcon(
-                    displayingRepairRequests[index]['currentStatus'],
-                  ),
-                  tileColor: Colors.black,
-                  titleAlignment: ListTileTitleAlignment.center,
-                  titleTextStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  subtitleTextStyle: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  style: ListTileStyle.drawer,
-                  shape: const RoundedRectangleBorder(
-                    side: BorderSide(
-                      color: Colors.green,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
+                isExpanded: true,
+                dropdownColor: Colors.green,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
+                value: currentOption,
+                items: RequestOption.values
+                    .map<DropdownMenuItem<RequestOption>>((option) {
+                  return DropdownMenuItem<RequestOption>(
+                    value: option,
+                    child: Text(option.label),
+                  );
+                }).toList(),
+                onChanged: (RequestOption? newValue) {
+                  if (newValue != null) {
+                    setState(() {
+                      currentOption = newValue;
+                    });
+                  }
+                },
               ),
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(
-            height: screenSize.height * 0.01,
-          ),
-        ),
-      ],
+            ),
+            SliverList.separated(
+              itemCount: filteredRequests.length,
+              itemBuilder: (context, index) {
+                RepairRequestModel requestItem = filteredRequests[index];
+                return InkWell(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => RepairRequestDetails(
+                        accountType: "owner",
+                        repairRequestId: requestItem.id,
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: screenSize.width * 0.05,
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        requestItem.userName,
+                      ),
+                      subtitle: Text(
+                        requestItem.vehicleNum,
+                      ),
+                      leading: getRepairRequestStatusIcon(
+                        requestItem.status,
+                      ),
+                      tileColor: Colors.black,
+                      titleAlignment: ListTileTitleAlignment.center,
+                      titleTextStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      subtitleTextStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      style: ListTileStyle.drawer,
+                      shape: const RoundedRectangleBorder(
+                        side: BorderSide(
+                          color: Colors.green,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => SizedBox(
+                height: screenSize.height * 0.01,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
