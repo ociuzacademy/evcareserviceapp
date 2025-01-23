@@ -82,6 +82,7 @@ class HomeScreen extends StatefulWidget {
       final int mechanicId = selectedIndex == 0 ? 0 : random.nextInt(10);
       final String mechanicName = selectedIndex == 0 ? "" : "Mechanic - $index";
       return {
+        "repairRequestId": index,
         "customerName": "Customer - ${index + 1}",
         "vehicleNumber": vehicleNumber,
         "description": description,
@@ -129,10 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
       const Center(
         child: PurchaseHistoryWidget(),
       ),
-      Center(
-        child: RepairRequestsWidget(
-          repairRequests: HomeScreen.repairRequests,
-        ),
+      const Center(
+        child: RepairRequestsWidget(),
       ),
     ];
   }

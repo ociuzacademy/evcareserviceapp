@@ -22,15 +22,8 @@ class WorksListWidget extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => RepairRequestDetails(
-                  customerName: workList[index]['customerName'],
-                  vehicleNumber: workList[index]['vehicleNumber'],
-                  description: workList[index]['description'],
-                  mechanicId: workList[index]['mechanicId'],
-                  mechanicName: workList[index]['mechanicName'],
-                  createdAt: workList[index]['createdAt'],
-                  updatedAt: workList[index]['updatedAt'],
-                  currentStatus: workList[index]['currentStatus'],
-                  repairCost: workList[index]['repairCost'],
+                  accountType: "employee",
+                  repairRequestId: workList[index]["repairRequestId"],
                 ),
               ),
             ),
