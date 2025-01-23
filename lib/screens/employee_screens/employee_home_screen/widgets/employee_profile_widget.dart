@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
+import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeProfileWidget extends StatelessWidget {
@@ -135,7 +136,13 @@ class EmployeeProfileWidget extends StatelessWidget {
           ),
           PaddedElevatedButton(
             buttonText: "Logout",
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),
