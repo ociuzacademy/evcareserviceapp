@@ -23,7 +23,7 @@ class WorksListWidget extends StatelessWidget {
             children: [
               Image.asset("assets/images/empty.png"),
               const Text(
-                "No repair works found",
+                "No repair works found in this category.",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
