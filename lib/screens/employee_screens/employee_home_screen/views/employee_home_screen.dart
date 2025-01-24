@@ -19,10 +19,7 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
       employeeId: 1,
     ),
     const EmployeeProfileWidget(
-      username: "employee_1",
-      employeeName: "Employee - 1",
-      email: "employee1@email.com",
-      phoneNumber: "+919876543210",
+      employeeId: 1,
     ),
   ];
 
