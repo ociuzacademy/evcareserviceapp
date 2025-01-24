@@ -148,7 +148,9 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                   repairRequestItem.status == "Repair Requested")
                 InkWell(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AssignEmployeeScreen(),
+                    builder: (context) => AssignEmployeeScreen(
+                      repairRequestId: widget.repairRequestId,
+                    ),
                   )),
                   child: const Icon(
                     Icons.build,

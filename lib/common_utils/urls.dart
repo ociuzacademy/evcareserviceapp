@@ -18,4 +18,5 @@ class Urls {
   static const String getRepairRequestItemUrl =
       "$serviceUrl/view_single_repair/";
   static const String getEmployeesListUrl = "$serviceUrl/view_employees/";
+  static const String assignEmployeeUrl = "$serviceUrl/assign_employee/";
 }
