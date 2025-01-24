@@ -34,7 +34,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         child: CustomScrollView(
           slivers: [
             const SliverToBoxAdapter(
-              child: ServiceCenterDetails(),
+              child: ServiceCenterDetails(
+                serviceCenterId: 2,
+              ),
             ),
             SliverToBoxAdapter(
               child: SizedBox(
