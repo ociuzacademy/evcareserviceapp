@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/complete_repair.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/single_repair_details.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/details_row.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/repair_dates_display_widget.dart';
@@ -23,6 +26,8 @@ class RepairRequestDetails extends StatefulWidget {
 }
 
 class _RepairRequestDetailsState extends State<RepairRequestDetails> {
+  bool _isCompletingRepair = false;
+
   Future<void> _showRepairCompleteDialogueBox() async {
     if (mounted) {
       return showDialog(
@@ -46,9 +51,11 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
             ),
             actions: [
               TextButton(
-                onPressed: () {
-                  Navigator.of(dialogueContext).pop();
-                },
+                onPressed: _isCompletingRepair
+                    ? null
+                    : () {
+                        Navigator.of(dialogueContext).pop();
+                      },
                 child: const Text(
                   "Cancel",
                   style: TextStyle(
@@ -58,12 +65,10 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.of(dialogueContext).pop();
-                },
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(
+                onPressed: _isCompletingRepair ? null : _completeRepair,
+                child: Text(
+                  _isCompletingRepair ? "Completing..." : "Submit",
+                  style: const TextStyle(
                     color: Colors.greenAccent,
                     fontSize: 15,
                   ),
@@ -73,6 +78,45 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
           );
         },
       );
+    }
+  }
+
+  Future<void> _completeRepair() async {
+    setState(() {
+      _isCompletingRepair = true;
+    });
+    try {
+      final response = await completeRepair(
+        repairRequestId: widget.repairRequestId,
+        employeeId: 1,
+      );
+      if (response.status == "success" && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Repair completed successfully.",
+            ),
+          ),
+        );
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => const EmployeeHomeScreen(),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle the error, e.g., show a snackbar
+      if (mounted) {
+        final errorMessage = e.toString();
+        showErrorDialogue(
+          context,
+          "Completing repair failed due to $errorMessage",
+        );
+      }
+    } finally {
+      setState(() {
+        _isCompletingRepair = false;
+      });
     }
   }
 
@@ -172,147 +216,154 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
               color: Colors.white,
             ),
           ),
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.035),
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: DetailsRow(
-                    title: "Customer Name:",
-                    details: repairRequestItem.userName,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: DetailsRow(
-                    title: "Vehicle Number:",
-                    details: repairRequestItem.vehicleNum,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Divider(
+          body: _isCompletingRepair
+              ? const Center(
+                  child: CircularProgressIndicator(
                     color: Colors.green,
                   ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
+                )
+              : Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenSize.width * 0.035),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: DetailsRow(
+                          title: "Customer Name:",
+                          details: repairRequestItem.userName,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: DetailsRow(
+                          title: "Vehicle Number:",
+                          details: repairRequestItem.vehicleNum,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          color: Colors.green,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Text(
+                          "Complaint Description:",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      SliverList.separated(
+                        itemBuilder: (context, index) => SingleRepairDetails(
+                          name: repairRequestItem.services[index].name,
+                          time: repairRequestItem.services[index].time,
+                          amount: repairRequestItem.services[index].amount,
+                        ),
+                        separatorBuilder: (context, index) => SizedBox(
+                          height: screenSize.height * 0.025,
+                        ),
+                        itemCount: repairRequestItem.services.length,
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          color: Colors.green,
+                        ),
+                      ),
+                      if (repairRequestItem.employeeName.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: DetailsRow(
+                            title: "Mechanic Name:",
+                            details: repairRequestItem.employeeName,
+                          ),
+                        ),
+                      if (repairRequestItem.employeeName.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: screenSize.height * 0.01,
+                          ),
+                        ),
+                      if (repairRequestItem.employeeName.isNotEmpty)
+                        const SliverToBoxAdapter(
+                          child: Divider(
+                            color: Colors.green,
+                          ),
+                        ),
+                      SliverToBoxAdapter(
+                        child: RepairDatesDisplayWidget(
+                          createdAt: repairRequestItem.createdAt,
+                          updatedAt: repairRequestItem.updatedAt,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          color: Colors.green,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Text(
+                          "Current Status:",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: RequestStatusStepperWidget(
+                          currentStatus: repairRequestItem.status,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: Divider(
+                          color: Colors.green,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: screenSize.height * 0.01,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: DetailsRow(
+                          title: "Repair Cost:",
+                          details: "₹${repairRequestItem.repairCost}",
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SliverToBoxAdapter(
-                  child: Text(
-                    "Complaint Description:",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                SliverList.separated(
-                  itemBuilder: (context, index) => SingleRepairDetails(
-                    name: repairRequestItem.services[index].name,
-                    time: repairRequestItem.services[index].time,
-                    amount: repairRequestItem.services[index].amount,
-                  ),
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: screenSize.height * 0.025,
-                  ),
-                  itemCount: repairRequestItem.services.length,
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Divider(
-                    color: Colors.green,
-                  ),
-                ),
-                if (repairRequestItem.employeeName.isNotEmpty)
-                  SliverToBoxAdapter(
-                    child: DetailsRow(
-                      title: "Mechanic Name:",
-                      details: repairRequestItem.employeeName,
-                    ),
-                  ),
-                if (repairRequestItem.employeeName.isNotEmpty)
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      height: screenSize.height * 0.01,
-                    ),
-                  ),
-                if (repairRequestItem.employeeName.isNotEmpty)
-                  const SliverToBoxAdapter(
-                    child: Divider(
-                      color: Colors.green,
-                    ),
-                  ),
-                SliverToBoxAdapter(
-                  child: RepairDatesDisplayWidget(
-                    createdAt: repairRequestItem.createdAt,
-                    updatedAt: repairRequestItem.updatedAt,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Divider(
-                    color: Colors.green,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Text(
-                    "Current Status:",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: RequestStatusStepperWidget(
-                    currentStatus: repairRequestItem.status,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: Divider(
-                    color: Colors.green,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: screenSize.height * 0.01,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: DetailsRow(
-                    title: "Repair Cost:",
-                    details: "₹${repairRequestItem.repairCost}",
-                  ),
-                ),
-              ],
-            ),
-          ),
         );
       },
     );
