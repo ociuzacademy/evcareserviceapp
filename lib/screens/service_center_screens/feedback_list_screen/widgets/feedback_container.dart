@@ -1,5 +1,5 @@
+import 'package:evcareserviceapp/common_widgets/custom_column_widget.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/models/feedback_model.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/widgets/feedback_column_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,30 +34,70 @@ class FeedbackContainer extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FeedbackColumnWidget(
+              CustomColumnWidget(
                 title: "Customer Name",
                 value: feedbackItem.userName,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
-              FeedbackColumnWidget(
+              CustomColumnWidget(
                 title: "Date",
                 value: dateFormat.format(feedbackItem.date),
                 crossAxisAlignment: CrossAxisAlignment.center,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
-              FeedbackColumnWidget(
+              CustomColumnWidget(
                 title: "Repair ID",
                 value: feedbackItem.repair.toString(),
                 crossAxisAlignment: CrossAxisAlignment.end,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ],
           ),
           const Divider(
             color: Colors.green,
           ),
-          FeedbackColumnWidget(
+          CustomColumnWidget(
             title: "Feedback",
             value: feedbackItem.feedback,
             crossAxisAlignment: CrossAxisAlignment.stretch,
+            titleStyle: const TextStyle(
+              color: Colors.grey,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+            valueStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
         ],
       ),

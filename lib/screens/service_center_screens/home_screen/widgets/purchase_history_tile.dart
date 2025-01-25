@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/purchase_history_tile_content.dart';
+import 'package:evcareserviceapp/common_widgets/custom_column_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -43,15 +43,35 @@ class PurchaseHistoryTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PurchaseHistoryTileContent(
+              CustomColumnWidget(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                item: "Customer Name",
+                title: "Customer Name",
                 value: customerName,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
               ),
-              PurchaseHistoryTileContent(
+              CustomColumnWidget(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                item: "Purchase Date",
+                title: "Purchase Date",
                 value: dateFormat.format(purchaseDate),
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
               ),
             ],
           ),
@@ -61,26 +81,66 @@ class PurchaseHistoryTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              PurchaseHistoryTileContent(
+              CustomColumnWidget(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                item: "Product Name",
+                title: "Product Name",
                 value: productName,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
               ),
-              PurchaseHistoryTileContent(
+              CustomColumnWidget(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                item: "Unit Price",
+                title: "Unit Price",
                 value: "₹${unitPrice.toStringAsFixed(2)}",
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
               ),
-              PurchaseHistoryTileContent(
-                item: "Quantity",
+              CustomColumnWidget(
+                title: "Quantity",
                 value: quantity.toString(),
                 crossAxisAlignment: CrossAxisAlignment.center,
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
               ),
-              PurchaseHistoryTileContent(
+              CustomColumnWidget(
                 value: "₹${productCost.toStringAsFixed(2)}",
-                item: "Product Cost",
+                title: "Product Cost",
                 crossAxisAlignment: CrossAxisAlignment.end,
-              )
+                titleStyle: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                valueStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                ),
+                truncateLength: 20,
+              ),
             ],
           )
         ],
