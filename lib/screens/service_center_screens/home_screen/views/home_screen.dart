@@ -1,4 +1,5 @@
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/views/employee_section_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/view/feedback_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -158,6 +159,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => const FeedbackListScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.group,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'Employees',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const EmployeeSectionScreen(),
                   ),
                 );
               },

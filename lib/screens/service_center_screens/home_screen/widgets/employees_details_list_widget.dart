@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:evcareserviceapp/common_widgets/employee_container.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/employees_details_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_employees_details.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/present_employee_container.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesDetailsListWidget extends StatelessWidget {
@@ -56,7 +56,7 @@ class EmployeesDetailsListWidget extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/empty.png"),
                   const Text(
-                    "No products found",
+                    "No employees found",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class EmployeesDetailsListWidget extends StatelessWidget {
         List<EmployeesDetailsModel> employees = snapshot.data!;
         return SliverList.separated(
           itemBuilder: (context, index) {
-            return PresentEmployeeContainer(
+            return EmployeeContainer(
               employeeName: employees[index].name,
               email: employees[index].email,
               phoneNumber: employees[index].phoneNumber,
