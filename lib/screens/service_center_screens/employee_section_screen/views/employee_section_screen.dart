@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/attendance_list.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/employees_list.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/leave_applications.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/utils/helper.dart';
 import 'package:flutter/material.dart';
 
@@ -102,10 +101,7 @@ class _EmployeeSectionScreenState extends State<EmployeeSectionScreen>
               ),
               Tab(
                 text: "Attendance",
-              ),
-              Tab(
-                text: "Leave Requests",
-              ),
+              )
             ],
           ),
         ),
@@ -118,10 +114,7 @@ class _EmployeeSectionScreenState extends State<EmployeeSectionScreen>
           ),
           AttendanceList(
             attendanceList: EmployeeSectionScreen.attendanceList,
-          ),
-          LeaveApplications(
-            leaveApplications: EmployeeSectionScreen.leaveApplications,
-          ),
+          )
         ],
       ),
     );
