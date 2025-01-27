@@ -1,18 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
-class PresentEmployeeContainer extends StatelessWidget {
-  const PresentEmployeeContainer({
+class AttendanceContainer extends StatelessWidget {
+  final String employeeName;
+  final String status;
+  const AttendanceContainer({
     super.key,
     required this.employeeName,
-    required this.email,
-    required this.phoneNumber,
+    required this.status,
   });
 
-  final String employeeName;
-  final String email;
-  final String phoneNumber;
+  Color _getColor() {
+    // "present", , "onleave"
+    switch (status) {
+      case "present":
+        return Colors.greenAccent;
+      case "absent":
+        return Colors.redAccent;
+      default:
+        return Colors.orangeAccent;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,26 +51,13 @@ class PresentEmployeeContainer extends StatelessWidget {
           SizedBox(
             height: screenSize.height * 0.005,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Email: $email",
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                "Phone: $phoneNumber",
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          Text(
+            "Status: $status",
+            style: TextStyle(
+              color: _getColor(),
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
