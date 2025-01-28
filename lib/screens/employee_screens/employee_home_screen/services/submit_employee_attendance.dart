@@ -10,7 +10,7 @@ Future<EmployeeAttendanceResponseModel> submitEmployeeAttendance({
 }) async {
   try {
     Map<String, dynamic> params = {
-      "employee_id": employeeId,
+      "employee": employeeId,
     };
 
     final resp = await http.post(
