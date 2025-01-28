@@ -24,24 +24,18 @@ class EmployeeSectionScreen extends StatefulWidget {
     employees.length,
     (index) {
       final random = Random();
-      List<String> attendanceStatuses = ["present", "absent", "on leave"];
+      List<String> attendanceStatuses = [
+        "present",
+        "absent",
+        "leave approved",
+        "leave rejected"
+      ];
 
       return {
         "id": index,
         "employeeId": index,
         "employeeName": employees[index]["employeeName"],
         "status": attendanceStatuses[random.nextInt(attendanceStatuses.length)]
-      };
-    },
-  );
-
-  static List<Map<String, dynamic>> leaveApplications = List.generate(
-    10,
-    (index) {
-      return {
-        "employeeName": "employee-${index + 1}",
-        "date": Helper.generateRandomDate(),
-        "status": "pending"
       };
     },
   );
@@ -56,7 +50,7 @@ class _EmployeeSectionScreenState extends State<EmployeeSectionScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 

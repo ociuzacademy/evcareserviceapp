@@ -15,7 +15,7 @@ class EmployeesList extends StatelessWidget {
     return ListView.separated(
       padding: EdgeInsets.symmetric(
         horizontal: screenSize.width * 0.05,
-        vertical: screenSize.height * 0.05,
+        vertical: screenSize.height * 0.025,
       ),
       itemBuilder: (context, index) {
         return EmployeeContainer(
