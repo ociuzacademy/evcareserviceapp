@@ -103,9 +103,7 @@ class _EmployeeSectionScreenState extends State<EmployeeSectionScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          EmployeesList(
-            employees: EmployeeSectionScreen.employees,
-          ),
+          const EmployeesList(),
           AttendanceList(
             attendanceList: EmployeeSectionScreen.attendanceList,
           )
