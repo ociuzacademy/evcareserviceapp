@@ -113,7 +113,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                 widget.employeeName,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -125,7 +125,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                   text: "Status: ",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
@@ -133,7 +133,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                       text: widget.status,
                       style: TextStyle(
                         color: _getColor(),
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -150,7 +150,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                         backgroundColor: Colors.redAccent,
                         foregroundColor: Colors.black,
                         textStyle: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -173,7 +173,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                         backgroundColor: Colors.greenAccent,
                         foregroundColor: Colors.black,
                         textStyle: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
