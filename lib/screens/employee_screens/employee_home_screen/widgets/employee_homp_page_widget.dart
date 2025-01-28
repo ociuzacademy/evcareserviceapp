@@ -19,9 +19,9 @@ class EmployeeHompPageWidget extends StatefulWidget {
 
 class _EmployeeHompPageWidgetState extends State<EmployeeHompPageWidget>
     with SingleTickerProviderStateMixin {
-  final TimeOfDay openingTime = const TimeOfDay(hour: 9, minute: 0);
+  final TimeOfDay openingTime = const TimeOfDay(hour: 14, minute: 0);
   // 9:00 AM
-  final TimeOfDay attendanceClosingTime = const TimeOfDay(hour: 10, minute: 0);
+  final TimeOfDay attendanceClosingTime = const TimeOfDay(hour: 15, minute: 0);
   // 10:00 AM
   late final TabController _tabController;
 
