@@ -30,7 +30,9 @@ class CustomColumnWidget extends StatelessWidget {
         Text(
           _getDisplayValue(value),
           style: valueStyle,
-          overflow: TextOverflow.ellipsis,
+          overflow: truncateLength != null && value.length > truncateLength!
+              ? TextOverflow.ellipsis
+              : TextOverflow.visible,
         ),
       ],
     );
