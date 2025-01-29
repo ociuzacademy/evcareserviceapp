@@ -1,3 +1,4 @@
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,8 @@ class OnBoardingWidget extends StatefulWidget {
 class _OnBoardingWidgetState extends State<OnBoardingWidget> {
   final introKey = GlobalKey<IntroductionScreenState>();
 
-  void _onIntroEnd(context) {
+  void _onIntroEnd(context) async {
+    await LocalStorage.disableIntroScreen();
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (_) => const LoginScreen(),

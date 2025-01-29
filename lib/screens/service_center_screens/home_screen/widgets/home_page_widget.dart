@@ -3,7 +3,7 @@ import 'package:evcareserviceapp/screens/service_center_screens/add_employee_scr
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/employees_details_list_widget.dart';
 import 'package:flutter/material.dart';
 
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/service_center_details.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/service_centre_details.dart';
 
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({
@@ -33,11 +33,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         padding: const EdgeInsets.all(10.0),
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
-              child: ServiceCenterDetails(
-                serviceCenterId: 2,
-              ),
-            ),
+            const ServiceCentreDetails(),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: screenSize.height * 0.01,

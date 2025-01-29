@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<ServiceCenterProfileModel> getServiceCenterProfileDetails({
+Future<ServiceCentreProfileModel> getServiceCentreProfileDetails({
   required int serviceCentreId,
 }) async {
   try {
@@ -13,7 +13,7 @@ Future<ServiceCenterProfileModel> getServiceCenterProfileDetails({
       "id": serviceCentreId.toString(),
     };
 
-    final url = Uri.parse(Urls.getServiceCenterProfileDetailsUrl)
+    final url = Uri.parse(Urls.getServiceCentreProfileDetailsUrl)
         .replace(queryParameters: params);
 
     final resp = await http.get(
@@ -25,7 +25,7 @@ Future<ServiceCenterProfileModel> getServiceCenterProfileDetails({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final response = ServiceCenterProfileModel.fromJson(decoded);
+      final response = ServiceCentreProfileModel.fromJson(decoded);
 
       return response;
     } else {

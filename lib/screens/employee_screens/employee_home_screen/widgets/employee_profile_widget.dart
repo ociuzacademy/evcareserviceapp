@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/get_employee_profile_details.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_profile_model.dart';
 
-class EmployeeProfileWidget extends StatelessWidget {
+class EmployeeProfileWidget extends StatefulWidget {
   final int employeeId;
   const EmployeeProfileWidget({
     super.key,
@@ -14,11 +15,27 @@ class EmployeeProfileWidget extends StatelessWidget {
   });
 
   @override
+  State<EmployeeProfileWidget> createState() => _EmployeeProfileWidgetState();
+}
+
+class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
+  void _logout() async {
+    await LocalStorage.employeeLogout();
+    if (mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder<EmployeeProfileModel>(
-      future: getEmployeeProfileDetails(employeeId: employeeId),
+      future: getEmployeeProfileDetails(employeeId: widget.employeeId),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -185,13 +202,7 @@ class EmployeeProfileWidget extends StatelessWidget {
               ),
               PaddedElevatedButton(
                 buttonText: "Logout",
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                },
+                onPressed: _logout,
               ),
             ],
           ),

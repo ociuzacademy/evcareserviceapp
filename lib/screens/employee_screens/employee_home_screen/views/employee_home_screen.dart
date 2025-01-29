@@ -1,3 +1,4 @@
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/employee_homp_page_widget.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/employee_profile_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +14,31 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   int _currentPageIndex = 0;
 
   final PageController _pageController = PageController();
+  late int employeeId;
 
-  final List<Widget> _appBodies = [
-    const EmployeeHompPageWidget(
-      employeeId: 1,
-    ),
-    const EmployeeProfileWidget(
-      employeeId: 1,
-    ),
-  ];
+  late List<Widget> _appBodies = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Call a separate method to fetch employeeId
+    _fetchEmployeeId();
+  }
+
+  // Separate method to handle asynchronous work
+  Future<void> _fetchEmployeeId() async {
+    employeeId = await LocalStorage.getEmployeeId();
+    setState(() {
+      _appBodies = [
+        EmployeeHompPageWidget(
+          employeeId: employeeId,
+        ),
+        EmployeeProfileWidget(
+          employeeId: employeeId,
+        ),
+      ];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,15 +113,21 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
           ],
         ),
       ),
-      body: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-        children: _appBodies,
-      ),
+      body: _appBodies.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            )
+          : PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPageIndex = index;
+                });
+              },
+              children: _appBodies,
+            ),
     );
   }
 }

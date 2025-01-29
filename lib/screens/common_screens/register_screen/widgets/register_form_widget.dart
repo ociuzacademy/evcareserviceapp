@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/models/location.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/services/service_center_registration_service.dart';
+import 'package:evcareserviceapp/screens/common_screens/register_screen/services/service_centre_registration_service.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/email_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/phone_number_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
@@ -31,7 +31,7 @@ class RegisterFormWidget extends StatefulWidget {
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _serviceCenterNameController =
+  final TextEditingController _serviceCentreNameController =
       TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -46,7 +46,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   void dispose() {
     // Dispose controllers to avoid memory leaks
     _usernameController.dispose();
-    _serviceCenterNameController.dispose();
+    _serviceCentreNameController.dispose();
     _addressController.dispose();
     _emailController.dispose();
     _phoneNumberController.dispose();
@@ -110,7 +110,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     });
   }
 
-  Future<void> _registerServiceCenter() async {
+  Future<void> _registerServiceCentre() async {
     if (_formKey.currentState!.validate() &&
         _latitude != null &&
         _longitude != null) {
@@ -118,9 +118,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         _isRegistering = true;
       });
       try {
-        final response = await registerServiceCenter(
+        final response = await registerServiceCentre(
           userName: _usernameController.text,
-          serviceCenterName: _serviceCenterNameController.text,
+          serviceCentreName: _serviceCentreNameController.text,
           address: _addressController.text,
           email: _emailController.text,
           phoneNumber: _phoneNumberController.text,
@@ -193,11 +193,11 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                           radius: 90,
                         ),
                         SizedBox(
-                          height: screenSize.height / 50,
+                          height: screenSize.height * 0.001,
                         ),
                         SizedBox(
-                          height: 750,
-                          width: 300,
+                          height: screenSize.height * 0.75,
+                          width: screenSize.width * 0.75,
                           child: Form(
                             key: _formKey,
                             child: Column(
@@ -215,22 +215,22 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   formTextController: _usernameController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 FormTextField(
                                   textFieldIcon: const Icon(Icons.store),
-                                  hintText: 'Enter service center name',
+                                  hintText: 'Enter service centre name',
                                   validator: (String? value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'Please enter ervice center name';
+                                      return 'Please enter service centre name';
                                     }
                                     return null;
                                   },
                                   formTextController:
-                                      _serviceCenterNameController,
+                                      _serviceCentreNameController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 AddressTextField(
                                   hintText: 'Enter address',
@@ -243,7 +243,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   addressTextController: _addressController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 EmailTextField(
                                   hintText: "Enter your email",
@@ -256,7 +256,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   emailTextController: _emailController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 PhoneNumberTextField(
                                   hintText: 'Enter your phone number',
@@ -270,7 +270,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                       _phoneNumberController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 PasswordTextField(
                                   hintText: 'Enter your password',
@@ -287,7 +287,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   passwordTextController: _passwordController,
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -327,7 +327,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: screenSize.height / 50,
+                                  height: screenSize.height * 0.025,
                                 ),
                                 RichTextWidget(
                                   bottomMessage: widget.bottomMessage,
@@ -335,7 +335,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                                 ),
                                 PaddedElevatedButton(
                                   buttonText: "Register",
-                                  onPressed: _registerServiceCenter,
+                                  onPressed: _registerServiceCentre,
                                 ),
                               ],
                             ),

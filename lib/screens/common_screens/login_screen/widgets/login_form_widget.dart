@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/common_widgets/password_text_field.dart';
@@ -37,7 +38,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     super.dispose();
   }
 
-  Future<void> _serviceCenterLogin() async {
+  Future<void> _serviceCentreLogin() async {
     // Validate will return true if the form is valid, or false if
     // the form is invalid.
     if (_formKey.currentState!.validate()) {
@@ -49,24 +50,38 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           userName: _usernameController.text,
           password: _passwordController.text,
         );
-        if (response.status == "success" && mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Login success.'),
-            ),
-          );
+        if (response.status == "success") {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Login success.'),
+              ),
+            );
+          }
           if (response.utype == "service_centre") {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
+            await LocalStorage.userLogin(
+              accountType: response.utype,
+              userId: response.serviceCentreId,
             );
+            if (mounted) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
+              );
+            }
           } else {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const EmployeeHomeScreen(),
-              ),
+            await LocalStorage.userLogin(
+              accountType: response.utype,
+              userId: response.employeeId,
             );
+            if (mounted) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const EmployeeHomeScreen(),
+                ),
+              );
+            }
           }
         }
       } catch (e) {
@@ -109,7 +124,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 return Center(
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: screenSize.height - 50.0,
+                      height: screenSize.height * 0.6,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -118,11 +133,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                             radius: 90,
                           ),
                           SizedBox(
-                            height: screenSize.height / 50,
+                            height: screenSize.height * 0.001,
                           ),
                           SizedBox(
-                            height: 300,
-                            width: 300,
+                            height: screenSize.height * 0.35,
+                            width: screenSize.width * 0.75,
                             child: Form(
                               key: _formKey,
                               child: Column(
@@ -140,7 +155,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                     formTextController: _usernameController,
                                   ),
                                   SizedBox(
-                                    height: screenSize.height / 50,
+                                    height: screenSize.height * 0.025,
                                   ),
                                   PasswordTextField(
                                     hintText: 'Enter your password',
@@ -157,14 +172,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                                     passwordTextController: _passwordController,
                                   ),
                                   SizedBox(
-                                    height: screenSize.height / 50,
+                                    height: screenSize.height * 0.025,
                                   ),
                                   RichTextWidget(
                                     bottomMessage: widget.bottomMessage,
                                     formRedirect: const RegisterScreen(),
                                   ),
                                   PaddedElevatedButton(
-                                    onPressed: _serviceCenterLogin,
+                                    onPressed: _serviceCentreLogin,
                                     buttonText: "Login",
                                   ),
                                 ],

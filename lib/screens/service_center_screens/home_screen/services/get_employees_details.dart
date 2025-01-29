@@ -6,11 +6,11 @@ import 'package:http/http.dart' as http;
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
 Future<List<EmployeesDetailsModel>> getEmployeesDetails({
-  required int serviceCenterId,
+  required int serviceCentreId,
 }) async {
   try {
     Map<String, dynamic> params = {
-      "service_centre": serviceCenterId.toString(),
+      "service_centre": serviceCentreId.toString(),
     };
 
     final url = Uri.parse(Urls.getEmployeesDetailsListUrl)

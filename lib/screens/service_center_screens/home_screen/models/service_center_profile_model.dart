@@ -1,16 +1,16 @@
 // To parse this JSON data, do
 //
-//     final serviceCenterProfileModel = serviceCenterProfileModelFromJson(jsonString);
+//     final serviceCentreProfileModel = serviceCentreProfileModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ServiceCenterProfileModel serviceCenterProfileModelFromJson(String str) =>
-    ServiceCenterProfileModel.fromJson(json.decode(str));
+ServiceCentreProfileModel serviceCentreProfileModelFromJson(String str) =>
+    ServiceCentreProfileModel.fromJson(json.decode(str));
 
-String serviceCenterProfileModelToJson(ServiceCenterProfileModel data) =>
+String serviceCentreProfileModelToJson(ServiceCentreProfileModel data) =>
     json.encode(data.toJson());
 
-class ServiceCenterProfileModel {
+class ServiceCentreProfileModel {
   final String name;
   final String username;
   final String address;
@@ -19,7 +19,7 @@ class ServiceCenterProfileModel {
   final String? image; // Updated to nullable String
   final int id;
 
-  ServiceCenterProfileModel({
+  ServiceCentreProfileModel({
     required this.name,
     required this.username,
     required this.address,
@@ -29,8 +29,8 @@ class ServiceCenterProfileModel {
     required this.id,
   });
 
-  factory ServiceCenterProfileModel.fromJson(Map<String, dynamic> json) =>
-      ServiceCenterProfileModel(
+  factory ServiceCentreProfileModel.fromJson(Map<String, dynamic> json) =>
+      ServiceCentreProfileModel(
         name: json["name"],
         username: json["username"],
         address: json["address"],

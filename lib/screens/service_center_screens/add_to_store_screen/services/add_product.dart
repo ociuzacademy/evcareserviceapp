@@ -11,7 +11,7 @@ Future<AddProductResponseModel> addProduct({
   required String productPrice,
   required String productQuantity,
   required File productImage,
-  required String serviceCenterId,
+  required int serviceCentreId,
 }) async {
   try {
     // Create a multipart request
@@ -22,7 +22,7 @@ Future<AddProductResponseModel> addProduct({
     request.fields['description'] = productDescription;
     request.fields['price'] = productPrice;
     request.fields['quantity'] = productQuantity;
-    request.fields['service_centre'] = serviceCenterId;
+    request.fields['service_centre'] = serviceCentreId.toString();
 
     // Add the image file
     var imageStream = http.ByteStream(productImage.openRead());

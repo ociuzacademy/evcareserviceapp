@@ -71,7 +71,6 @@ class RepairRequestList extends StatelessWidget {
           onTap: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => RepairRequestDetails(
-                accountType: "owner",
                 repairRequestId: requestItem.id,
               ),
             ),

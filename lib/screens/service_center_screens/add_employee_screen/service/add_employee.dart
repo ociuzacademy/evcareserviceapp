@@ -11,7 +11,7 @@ Future<AddEmployeeResponseModel> addEmployee({
   required String email,
   required String phoneNumber,
   required String password,
-  required String serviceCenterId,
+  required int serviceCentreId,
 }) async {
   try {
     Map<String, dynamic> params = {
@@ -20,7 +20,7 @@ Future<AddEmployeeResponseModel> addEmployee({
       "email": email,
       "phone_number": phoneNumber,
       "password": password,
-      "service_centre": int.parse(serviceCenterId),
+      "service_centre": serviceCentreId,
     };
 
     final resp = await http.post(

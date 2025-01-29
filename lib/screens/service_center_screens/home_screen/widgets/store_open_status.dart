@@ -11,7 +11,7 @@ class StoreOpenStatus extends StatelessWidget {
   final TimeOfDay openingTime;
   final TimeOfDay closingTime;
 
-  String _getServiceCenterStatus() {
+  String _getServiceCentreStatus() {
     final now = DateTime.now();
     final currentTime = TimeOfDay.fromDateTime(now);
 
@@ -42,7 +42,7 @@ class StoreOpenStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final status = _getServiceCenterStatus();
+    final status = _getServiceCentreStatus();
     return Text(
       status,
       style: TextStyle(
