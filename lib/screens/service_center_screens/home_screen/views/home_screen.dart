@@ -1,3 +1,4 @@
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/views/employee_section_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/view/feedback_list_screen.dart';
@@ -21,6 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
 
   late List<Widget> _appBodies;
+
+  void _logout() async {
+    await LocalStorage.serviceCentreLogout();
+    if (mounted) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    }
+  }
 
   @override
   void initState() {
@@ -197,13 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 20,
                 ),
               ),
-              onTap: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
-                );
-              },
+              onTap: _logout,
             ),
           ],
         ),

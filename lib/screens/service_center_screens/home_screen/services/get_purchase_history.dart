@@ -6,11 +6,11 @@ import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/purchase_history_model.dart';
 
 Future<List<PurchaseHistoryModel>> getPurchaseHistory({
-  required String serviceCenterId,
+  required int serviceCentreId,
 }) async {
   try {
     Map<String, dynamic> params = {
-      "service_centre": serviceCenterId,
+      "service_centre": serviceCentreId.toString(),
     };
 
     final url =

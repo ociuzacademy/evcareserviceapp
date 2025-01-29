@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/models/product_item_model.dart';
 
-Future<ProductItemModel> getProductDetails({required String productId}) async {
+Future<ProductItemModel> getProductDetails({required int productId}) async {
   try {
     Map<String, dynamic> params = {
-      "product_id": productId,
+      "product_id": productId.toString(),
     };
 
     final url =

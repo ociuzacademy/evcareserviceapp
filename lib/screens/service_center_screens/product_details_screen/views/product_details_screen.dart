@@ -17,7 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder<ProductItemModel>(
-      future: getProductDetails(productId: productId.toString()),
+      future: getProductDetails(productId: productId),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {

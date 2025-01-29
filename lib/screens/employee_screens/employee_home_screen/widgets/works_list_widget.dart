@@ -44,7 +44,6 @@ class WorksListWidget extends StatelessWidget {
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => RepairRequestDetails(
-                  accountType: "employee",
                   repairRequestId: workList[index].id,
                 ),
               ),

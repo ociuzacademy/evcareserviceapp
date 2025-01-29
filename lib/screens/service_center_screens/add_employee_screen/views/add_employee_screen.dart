@@ -1,4 +1,5 @@
 import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/service/add_employee.dart';
@@ -45,12 +46,13 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
         _isAddingEmployee = true;
       });
       try {
+        final serviceCentreId = await LocalStorage.getServiceCentreId();
         final response = await addEmployee(
           username: _employeeUsernameController.text,
           employeeName: _employeeNameController.text,
           email: _employeeEmailController.text,
           phoneNumber: _employeePhoneNumberController.text,
-          serviceCenterId: "2",
+          serviceCentreId: serviceCentreId,
           password: _employeePasswordController.text,
         );
         if (response.status == "success" && mounted) {

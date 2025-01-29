@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/complete_repair.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/single_repair_details.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
@@ -13,11 +14,9 @@ import 'package:evcareserviceapp/screens/common_screens/repair_request_details_s
 import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/views/assign_employee_screen.dart';
 
 class RepairRequestDetails extends StatefulWidget {
-  final String accountType;
   final int repairRequestId;
   const RepairRequestDetails({
     super.key,
-    required this.accountType,
     required this.repairRequestId,
   });
 
@@ -27,6 +26,20 @@ class RepairRequestDetails extends StatefulWidget {
 
 class _RepairRequestDetailsState extends State<RepairRequestDetails> {
   bool _isCompletingRepair = false;
+  late String _accountType;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchAccountType();
+  }
+
+  Future<void> _fetchAccountType() async {
+    String userType = await LocalStorage.getUserType();
+    setState(() {
+      _accountType = userType;
+    });
+  }
 
   Future<void> _showRepairCompleteDialogueBox() async {
     if (mounted) {
@@ -188,7 +201,7 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
               fontWeight: FontWeight.bold,
             ),
             actions: [
-              if (widget.accountType == "owner" &&
+              if (_accountType == "service_centre" &&
                   repairRequestItem.status == "Repair Requested")
                 InkWell(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
@@ -200,7 +213,7 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                     Icons.build,
                   ),
                 ),
-              if (widget.accountType == "employee" &&
+              if (_accountType == "employee" &&
                   repairRequestItem.status == "Mechanic Assigned")
                 InkWell(
                   onTap: _showRepairCompleteDialogueBox,

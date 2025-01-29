@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/submit_employee_attendance.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/disabled_padded_elevated_button.dart';
@@ -62,8 +63,9 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
       _isSubmittingAttendance = true;
     });
     try {
+      final employeeId = await LocalStorage.getEmployeeId();
       final response = await submitEmployeeAttendance(
-        employeeId: 1,
+        employeeId: employeeId,
       );
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

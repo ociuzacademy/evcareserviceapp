@@ -1,15 +1,45 @@
-import 'package:evcareserviceapp/screens/common_screens/introduction_screen/views/on_boarding_widget.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const MyApp());
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
+import 'package:evcareserviceapp/screens/common_screens/introduction_screen/views/on_boarding_widget.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  bool isFirstLaunch = await LocalStorage.getIntroScreenStatus();
+  bool isLoggedIn = await LocalStorage.getLoginStatus();
+  String userType = await LocalStorage.getUserType();
+
+  Widget initialScreen;
+
+  if (isFirstLaunch) {
+    initialScreen = const OnBoardingWidget();
+  } else {
+    if (isLoggedIn) {
+      if (userType == "service_centre") {
+        initialScreen = const HomeScreen();
+      } else {
+        initialScreen = const EmployeeHomeScreen();
+      }
+    } else {
+      initialScreen = const LoginScreen();
+    }
+  }
+
+  runApp(MyApp(
+    initialScreen: initialScreen,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget initialScreen;
+  const MyApp({
+    super.key,
+    required this.initialScreen,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +51,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const OnBoardingWidget(),
+      home: initialScreen,
     );
   }
 }

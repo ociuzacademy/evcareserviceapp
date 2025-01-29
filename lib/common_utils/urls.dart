@@ -19,7 +19,7 @@ class Urls {
       "$serviceUrl/view_single_repair/";
   static const String getEmployeesListUrl = "$serviceUrl/view_employees/";
   static const String assignEmployeeUrl = "$serviceUrl/assign_employee/";
-  static const String getServiceCenterProfileDetailsUrl =
+  static const String getServiceCentreProfileDetailsUrl =
       "$serviceUrl/service_centre_view_profile/";
   static const String getFeedbackListUrl = "$serviceUrl/view_feedback/";
 
