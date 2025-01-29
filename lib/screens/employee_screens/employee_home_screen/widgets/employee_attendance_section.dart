@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/constants.dart';
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
@@ -7,12 +8,8 @@ import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/w
 import 'package:flutter/material.dart';
 
 class EmployeeAttendanceSection extends StatefulWidget {
-  final TimeOfDay openingTime;
-  final TimeOfDay attendanceClosingTime;
   const EmployeeAttendanceSection({
     super.key,
-    required this.openingTime,
-    required this.attendanceClosingTime,
   });
 
   @override
@@ -37,8 +34,8 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
     // Check if current time is within opening and closing times
     if (_isTimeBetween(
       currentTime,
-      widget.openingTime,
-      widget.attendanceClosingTime,
+      Constants.openingTime,
+      Constants.attendanceClosingTime,
     )) {
       return "";
     } else {

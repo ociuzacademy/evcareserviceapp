@@ -1,15 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/common_utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class StoreOpenStatus extends StatelessWidget {
   const StoreOpenStatus({
     super.key,
-    required this.openingTime,
-    required this.closingTime,
   });
-
-  final TimeOfDay openingTime;
-  final TimeOfDay closingTime;
 
   String _getServiceCentreStatus() {
     final now = DateTime.now();
@@ -21,7 +17,11 @@ class StoreOpenStatus extends StatelessWidget {
     }
 
     // Check if current time is within opening and closing times
-    if (_isTimeBetween(currentTime, openingTime, closingTime)) {
+    if (_isTimeBetween(
+      currentTime,
+      Constants.openingTime,
+      Constants.closingTime,
+    )) {
       return "Open";
     } else {
       return "Closed";
