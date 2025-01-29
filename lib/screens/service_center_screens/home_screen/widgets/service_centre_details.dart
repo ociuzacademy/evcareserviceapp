@@ -15,9 +15,6 @@ class ServiceCentreDetails extends StatefulWidget {
 }
 
 class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
-  final TimeOfDay openingTime = const TimeOfDay(hour: 9, minute: 0); // 9:00 AM
-  final TimeOfDay closingTime = const TimeOfDay(hour: 18, minute: 0); // 6:00 PM
-
   int? _serviceCentreId;
 
   @override
@@ -134,10 +131,7 @@ class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
                   fontSize: 18,
                 ),
               ),
-              StoreOpenStatus(
-                openingTime: openingTime,
-                closingTime: closingTime,
-              ),
+              const StoreOpenStatus(),
             ],
           ),
         );
