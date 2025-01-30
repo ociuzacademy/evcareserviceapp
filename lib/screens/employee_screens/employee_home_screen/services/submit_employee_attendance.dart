@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
-import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_attendance_response_model.dart';
 
-Future<EmployeeAttendanceResponseModel> submitEmployeeAttendance() async {
+Future<CommonResponseModel> submitEmployeeAttendance() async {
   try {
     int employeeId = await LocalStorage.getEmployeeId();
     Map<String, dynamic> params = {
@@ -23,8 +24,8 @@ Future<EmployeeAttendanceResponseModel> submitEmployeeAttendance() async {
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final EmployeeAttendanceResponseModel response =
-          EmployeeAttendanceResponseModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

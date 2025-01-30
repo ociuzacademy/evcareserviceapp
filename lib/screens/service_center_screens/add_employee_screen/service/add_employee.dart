@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
-import 'package:evcareserviceapp/common_utils/urls.dart';
+
 import 'package:http/http.dart' as http;
 
-import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/models/add_employee_response_model.dart';
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
+import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<AddEmployeeResponseModel> addEmployee({
+Future<CommonResponseModel> addEmployee({
   required String username,
   required String employeeName,
   required String email,
@@ -34,8 +35,8 @@ Future<AddEmployeeResponseModel> addEmployee({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final AddEmployeeResponseModel response =
-          AddEmployeeResponseModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

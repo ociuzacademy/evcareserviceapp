@@ -69,8 +69,8 @@ class _UpdateProductDataState extends State<UpdateProductData> {
         );
         if (response.status == "success" && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Updated product successfully."),
+            SnackBar(
+              content: Text(response.message),
             ),
           );
           Navigator.of(context).pushReplacement(

@@ -60,9 +60,9 @@ class _AssignEmployeeScreenState extends State<AssignEmployeeScreen> {
         );
         if (response.status == "success" && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                "Employee assigned for the repair request successfully.",
+                response.message,
               ),
             ),
           );

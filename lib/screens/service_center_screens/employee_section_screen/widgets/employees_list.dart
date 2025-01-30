@@ -1,8 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/common_widgets/employee_container.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/models/employee_model.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/services/get_employee_details_list.dart';
 import 'package:flutter/material.dart';
+
+import 'package:evcareserviceapp/common_models/employee_details_model.dart';
+import 'package:evcareserviceapp/common_widgets/employee_container.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/services/get_employee_details_list.dart';
 
 class EmployeesList extends StatefulWidget {
   const EmployeesList({
@@ -22,7 +23,7 @@ class _EmployeesListState extends State<EmployeesList> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return FutureBuilder<List<EmployeeModel>>(
+    return FutureBuilder<List<EmployeeDetailsModel>>(
       future: getEmployeeDetailsList(),
       builder: (context, snapshot) {
         // Loading State
@@ -73,7 +74,7 @@ class _EmployeesListState extends State<EmployeesList> {
         }
 
         // Success State
-        List<EmployeeModel> employees = snapshot.data!;
+        List<EmployeeDetailsModel> employees = snapshot.data!;
         return ListView.separated(
           padding: EdgeInsets.symmetric(
             horizontal: screenSize.width * 0.05,

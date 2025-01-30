@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_utils/urls.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/models/leave_action_model.dart';
+
 import 'package:http/http.dart' as http;
 
-Future<LeaveActionModel> approveLeave({
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
+import 'package:evcareserviceapp/common_utils/urls.dart';
+
+Future<CommonResponseModel> approveLeave({
   required int employeeId,
 }) async {
   try {
@@ -22,7 +24,8 @@ Future<LeaveActionModel> approveLeave({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final LeaveActionModel response = LeaveActionModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

@@ -95,7 +95,7 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
 
         if (status && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Adding new product success")),
+            SnackBar(content: Text(response.message)),
           );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(

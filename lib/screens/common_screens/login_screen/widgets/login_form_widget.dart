@@ -53,8 +53,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         if (response.status == "success") {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Login success.'),
+              SnackBar(
+                content: Text(response.message),
               ),
             );
           }

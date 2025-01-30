@@ -54,8 +54,8 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
         );
         if (response.status == "success" && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Added employee successfully."),
+            SnackBar(
+              content: Text(response.message),
             ),
           );
           Navigator.of(context).pop();

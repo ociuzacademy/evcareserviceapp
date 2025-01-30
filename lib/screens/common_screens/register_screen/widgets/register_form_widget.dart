@@ -135,7 +135,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         if (status && mounted) {
           // Use context here because mounted is true
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Registration success")),
+            SnackBar(content: Text(response.message)),
           );
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(

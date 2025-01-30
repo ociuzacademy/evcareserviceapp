@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:http/http.dart' as http;
-import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/models/add_product_response_model.dart';
 
-Future<AddProductResponseModel> addProduct({
+Future<CommonResponseModel> addProduct({
   required String productName,
   required String productDescription,
   required String productPrice,
@@ -45,8 +45,8 @@ Future<AddProductResponseModel> addProduct({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(responseBody);
-      final AddProductResponseModel response =
-          AddProductResponseModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(responseBody);
