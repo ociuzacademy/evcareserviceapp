@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/models/repair_completed_response_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<RepairCompletedResponseModel> completeRepair({
+Future<CommonResponseModel> completeRepair({
   required int repairRequestId,
 }) async {
   try {
@@ -26,8 +26,8 @@ Future<RepairCompletedResponseModel> completeRepair({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final RepairCompletedResponseModel response =
-          RepairCompletedResponseModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

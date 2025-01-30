@@ -104,9 +104,9 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
       );
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
+          SnackBar(
             content: Text(
-              "Repair completed successfully.",
+              response.message,
             ),
           ),
         );

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/models/service_centre_register_data_model.dart';
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/models/location.dart';
 
-Future<ServiceCentreRegisterDataModel> registerServiceCentre({
+Future<CommonResponseModel> registerServiceCentre({
   required String userName,
   required String serviceCentreName,
   required String address,
@@ -37,8 +37,8 @@ Future<ServiceCentreRegisterDataModel> registerServiceCentre({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final ServiceCentreRegisterDataModel response =
-          ServiceCentreRegisterDataModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

@@ -62,8 +62,8 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
       final response = await submitEmployeeAttendance();
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Submitting attendance success.'),
+          SnackBar(
+            content: Text(response.message),
           ),
         );
       }

@@ -109,8 +109,8 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
       );
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Approved employee leave successfully."),
+          SnackBar(
+            content: Text(response.message),
           ),
         );
         Navigator.of(context).pushReplacement(
@@ -145,8 +145,8 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
       );
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Rejected employee leave successfully."),
+          SnackBar(
+            content: Text(response.message),
           ),
         );
         Navigator.of(context).pushReplacement(

@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/models/assign_employee_response_model.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<AssignEmployeeResponseModel> assignEmployee({
+Future<CommonResponseModel> assignEmployee({
   required int repairRequestId,
   required int employeeId,
 }) async {
@@ -25,8 +26,8 @@ Future<AssignEmployeeResponseModel> assignEmployee({
 
     if (resp.statusCode == 200) {
       final dynamic decoded = jsonDecode(resp.body);
-      final AssignEmployeeResponseModel response =
-          AssignEmployeeResponseModel.fromJson(decoded);
+      final CommonResponseModel response =
+          CommonResponseModel.fromJson(decoded);
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);

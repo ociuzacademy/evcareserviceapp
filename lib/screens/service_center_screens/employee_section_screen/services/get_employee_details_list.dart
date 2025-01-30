@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_models/employee_details_model.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/models/employee_model.dart';
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<List<EmployeeModel>> getEmployeeDetailsList() async {
+Future<List<EmployeeDetailsModel>> getEmployeeDetailsList() async {
   try {
     int serviceCentreId = await LocalStorage.getServiceCentreId();
     Map<String, dynamic> params = {
@@ -26,7 +26,7 @@ Future<List<EmployeeModel>> getEmployeeDetailsList() async {
     if (resp.statusCode == 200) {
       final List<dynamic> decoded = jsonDecode(resp.body);
       final response =
-          decoded.map((item) => EmployeeModel.fromJson(item)).toList();
+          decoded.map((item) => EmployeeDetailsModel.fromJson(item)).toList();
 
       return response;
     } else {
