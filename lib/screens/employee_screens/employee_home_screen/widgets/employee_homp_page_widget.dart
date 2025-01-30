@@ -7,10 +7,8 @@ import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/w
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/works_list_widget.dart';
 
 class EmployeeHompPageWidget extends StatefulWidget {
-  final int employeeId;
   const EmployeeHompPageWidget({
     super.key,
-    required this.employeeId,
   });
 
   @override
@@ -67,7 +65,7 @@ class _EmployeeHompPageWidgetState extends State<EmployeeHompPageWidget>
         ),
       ),
       body: FutureBuilder<List<EmployeeWorkModel>>(
-        future: getEmployeeWorks(employeeId: widget.employeeId),
+        future: getEmployeeWorks(),
         builder: (context, snapshot) {
           // Loading State
           if (snapshot.connectionState == ConnectionState.waiting) {

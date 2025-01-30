@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/models/employee_model.dart';
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 
-Future<List<EmployeeModel>> getEmployeeDetailsList({
-  required int serviceCentreId,
-}) async {
+Future<List<EmployeeModel>> getEmployeeDetailsList() async {
   try {
+    int serviceCentreId = await LocalStorage.getServiceCentreId();
     Map<String, dynamic> params = {
       "service_centre": serviceCentreId.toString(),
     };

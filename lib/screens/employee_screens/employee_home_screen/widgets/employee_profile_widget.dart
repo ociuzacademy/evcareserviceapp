@@ -8,10 +8,8 @@ import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_profile_model.dart';
 
 class EmployeeProfileWidget extends StatefulWidget {
-  final int employeeId;
   const EmployeeProfileWidget({
     super.key,
-    required this.employeeId,
   });
 
   @override
@@ -35,7 +33,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
     var screenSize = MediaQuery.of(context).size;
 
     return FutureBuilder<EmployeeProfileModel>(
-      future: getEmployeeProfileDetails(employeeId: widget.employeeId),
+      future: getEmployeeProfileDetails(),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {

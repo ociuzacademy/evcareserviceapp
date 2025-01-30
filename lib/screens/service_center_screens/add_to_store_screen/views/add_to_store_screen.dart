@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:evcareserviceapp/common_utils/helper.dart';
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
@@ -84,14 +83,12 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
         _isAddingProduct = true;
       });
       try {
-        final serviceCentreId = await LocalStorage.getServiceCentreId();
         final response = await addProduct(
           productName: _productNameController.text,
           productDescription: _productDescriptionController.text,
           productPrice: _productPriceController.text,
           productQuantity: _productQuantityController.text,
           productImage: _imageFile!,
-          serviceCentreId: serviceCentreId,
         );
 
         bool status = response.status == "success";

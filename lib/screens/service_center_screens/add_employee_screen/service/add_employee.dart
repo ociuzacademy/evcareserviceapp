@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,9 +12,9 @@ Future<AddEmployeeResponseModel> addEmployee({
   required String email,
   required String phoneNumber,
   required String password,
-  required int serviceCentreId,
 }) async {
   try {
+    int serviceCentreId = await LocalStorage.getServiceCentreId();
     Map<String, dynamic> params = {
       "username": username,
       "name": employeeName,

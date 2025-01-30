@@ -101,7 +101,6 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
     try {
       final response = await completeRepair(
         repairRequestId: widget.repairRequestId,
-        employeeId: 1,
       );
       if (response.status == "success" && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

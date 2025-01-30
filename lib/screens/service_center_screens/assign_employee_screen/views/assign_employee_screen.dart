@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/common_utils/helper.dart';
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/services/assign_employee.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +34,7 @@ class _AssignEmployeeScreenState extends State<AssignEmployeeScreen> {
 
   Future<void> _fetchEmployees() async {
     try {
-      final serviceCentreId = await LocalStorage.getServiceCentreId();
-      final employees = await getEmployees(serviceCentreId: serviceCentreId);
+      final employees = await getEmployees();
       setState(() {
         _employees = employees;
         _isLoading = false;

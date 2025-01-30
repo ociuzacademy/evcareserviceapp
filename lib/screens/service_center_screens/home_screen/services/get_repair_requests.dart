@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/repair_request_model.dart';
 
-Future<List<RepairRequestModel>> getRepairRequests({
-  required int serviceCentreId,
-}) async {
+Future<List<RepairRequestModel>> getRepairRequests() async {
   try {
+    int serviceCentreId = await LocalStorage.getServiceCentreId();
     Map<String, dynamic> params = {
       "service_centre": serviceCentreId.toString(),
     };

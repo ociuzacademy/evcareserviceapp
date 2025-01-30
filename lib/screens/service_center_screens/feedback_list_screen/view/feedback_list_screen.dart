@@ -1,4 +1,3 @@
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/models/feedback_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/services/get_user_feedacks.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/feedback_list_screen/widgets/feedback_container.dart';
@@ -12,19 +11,9 @@ class FeedbackListScreen extends StatefulWidget {
 }
 
 class _FeedbackListScreenState extends State<FeedbackListScreen> {
-  late int _serviceCentreId;
-
   @override
   void initState() {
     super.initState();
-    _getServiceCentreId();
-  }
-
-  Future<void> _getServiceCentreId() async {
-    final userId = await LocalStorage.getServiceCentreId();
-    setState(() {
-      _serviceCentreId = userId;
-    });
   }
 
   @override
@@ -47,7 +36,7 @@ class _FeedbackListScreenState extends State<FeedbackListScreen> {
         ),
       ),
       body: FutureBuilder<List<FeedbackModel>>(
-        future: getUserFeedbacks(serviceCentreId: _serviceCentreId),
+        future: getUserFeedbacks(),
         builder: (context, snapshot) {
           // Loading State
           if (snapshot.connectionState == ConnectionState.waiting) {

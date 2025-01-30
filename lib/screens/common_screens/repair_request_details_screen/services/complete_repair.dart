@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/models/repair_completed_response_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -7,12 +8,12 @@ import 'package:evcareserviceapp/common_utils/urls.dart';
 
 Future<RepairCompletedResponseModel> completeRepair({
   required int repairRequestId,
-  required int employeeId,
 }) async {
   try {
+    int employeeId = await LocalStorage.getEmployeeId();
     Map<String, dynamic> params = {
-      "repair": repairRequestId.toString(),
-      "employee": employeeId.toString(),
+      "repair": repairRequestId,
+      "employee": employeeId,
     };
 
     final resp = await http.patch(
