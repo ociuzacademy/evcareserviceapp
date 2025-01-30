@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/models/add_product_response_model.dart';
@@ -11,12 +12,13 @@ Future<AddProductResponseModel> addProduct({
   required String productPrice,
   required String productQuantity,
   required File productImage,
-  required int serviceCentreId,
 }) async {
   try {
     // Create a multipart request
     var request = http.MultipartRequest("POST", Uri.parse(Urls.addProductUrl));
 
+    // Get service centre ID
+    int serviceCentreId = await LocalStorage.getServiceCentreId();
     // Add text fields
     request.fields['name'] = productName;
     request.fields['description'] = productDescription;

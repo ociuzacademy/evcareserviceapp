@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_widgets/employee_container.dart';
@@ -19,40 +18,17 @@ class EmployeesDetailsListWidget extends StatefulWidget {
 
 class _EmployeesDetailsListWidgetState
     extends State<EmployeesDetailsListWidget> {
-  int? _serviceCentreId;
-
   @override
   void initState() {
     super.initState();
-    _getServiceCentreId();
-  }
-
-  Future<void> _getServiceCentreId() async {
-    final userId = await LocalStorage.getServiceCentreId();
-    if (mounted) {
-      setState(() {
-        _serviceCentreId = userId;
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-    // Ensure _serviceCentreId is initialized before calling the API
-    if (_serviceCentreId == null) {
-      return const SliverToBoxAdapter(
-        child: Center(
-          child: CircularProgressIndicator(
-            color: Colors.green,
-          ),
-        ),
-      );
-    }
-
     return FutureBuilder<List<EmployeesDetailsModel>>(
-      future: getEmployeesDetails(serviceCentreId: _serviceCentreId!),
+      future: getEmployeesDetails(),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {

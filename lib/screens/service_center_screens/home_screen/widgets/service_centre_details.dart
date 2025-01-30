@@ -1,4 +1,3 @@
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/service_center_profile_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_service_centre_profile_details.dart';
@@ -15,41 +14,17 @@ class ServiceCentreDetails extends StatefulWidget {
 }
 
 class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
-  int? _serviceCentreId;
-
   @override
   void initState() {
     super.initState();
-    _getServiceCentreId();
-  }
-
-  Future<void> _getServiceCentreId() async {
-    final userId = await LocalStorage.getServiceCentreId();
-    if (mounted) {
-      setState(() {
-        _serviceCentreId = userId;
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-    // Ensure _serviceCentreId is initialized before calling the API
-    if (_serviceCentreId == null) {
-      return const SliverToBoxAdapter(
-        child: Center(
-          child: CircularProgressIndicator(
-            color: Colors.green,
-          ),
-        ),
-      );
-    }
-
     return FutureBuilder<ServiceCentreProfileModel>(
-      future:
-          getServiceCentreProfileDetails(serviceCentreId: _serviceCentreId!),
+      future: getServiceCentreProfileDetails(),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {

@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/employee_container.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/models/employee_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/services/get_employee_details_list.dart';
@@ -15,26 +14,16 @@ class EmployeesList extends StatefulWidget {
 }
 
 class _EmployeesListState extends State<EmployeesList> {
-  late int _serviceCentreId;
-
   @override
   void initState() {
     super.initState();
-    _getServiceCentreId();
-  }
-
-  Future<void> _getServiceCentreId() async {
-    int userId = await LocalStorage.getServiceCentreId();
-    setState(() {
-      _serviceCentreId = userId;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder<List<EmployeeModel>>(
-      future: getEmployeeDetailsList(serviceCentreId: _serviceCentreId),
+      future: getEmployeeDetailsList(),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {

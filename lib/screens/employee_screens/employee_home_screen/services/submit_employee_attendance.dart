@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_attendance_response_model.dart';
 
-Future<EmployeeAttendanceResponseModel> submitEmployeeAttendance({
-  required int employeeId,
-}) async {
+Future<EmployeeAttendanceResponseModel> submitEmployeeAttendance() async {
   try {
+    int employeeId = await LocalStorage.getEmployeeId();
     Map<String, dynamic> params = {
       "employee": employeeId,
     };

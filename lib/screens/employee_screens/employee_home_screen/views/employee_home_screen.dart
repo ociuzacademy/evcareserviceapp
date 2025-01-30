@@ -1,4 +1,3 @@
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/employee_homp_page_widget.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/employee_profile_widget.dart';
 import 'package:flutter/material.dart';
@@ -14,31 +13,11 @@ class _EmployeeHomeScreenState extends State<EmployeeHomeScreen> {
   int _currentPageIndex = 0;
 
   final PageController _pageController = PageController();
-  late int employeeId;
 
-  late List<Widget> _appBodies = [];
-
-  @override
-  void initState() {
-    super.initState();
-    // Call a separate method to fetch employeeId
-    _fetchEmployeeId();
-  }
-
-  // Separate method to handle asynchronous work
-  Future<void> _fetchEmployeeId() async {
-    employeeId = await LocalStorage.getEmployeeId();
-    setState(() {
-      _appBodies = [
-        EmployeeHompPageWidget(
-          employeeId: employeeId,
-        ),
-        EmployeeProfileWidget(
-          employeeId: employeeId,
-        ),
-      ];
-    });
-  }
+  final List<Widget> _appBodies = [
+    const EmployeeHompPageWidget(),
+    const EmployeeProfileWidget(),
+  ];
 
   @override
   Widget build(BuildContext context) {
