@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_widgets/employee_container.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/employees_details_model.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_employees_details.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/service_centre_employee_attendance_model.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_present_employees_list.dart';
 
 class EmployeesDetailsListWidget extends StatefulWidget {
   const EmployeesDetailsListWidget({
@@ -27,8 +27,8 @@ class _EmployeesDetailsListWidgetState
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
 
-    return FutureBuilder<List<EmployeesDetailsModel>>(
-      future: getEmployeesDetails(),
+    return FutureBuilder<List<ServiceCentreEmployeeAttendanceModel>>(
+      future: getPresentEmployeesList(),
       builder: (context, snapshot) {
         // Loading State
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -84,7 +84,7 @@ class _EmployeesDetailsListWidgetState
         }
 
         // Success State
-        List<EmployeesDetailsModel> employees = snapshot.data!;
+        List<ServiceCentreEmployeeAttendanceModel> employees = snapshot.data!;
         return SliverList.separated(
           itemBuilder: (context, index) {
             return EmployeeContainer(
