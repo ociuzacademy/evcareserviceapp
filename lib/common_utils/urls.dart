@@ -6,6 +6,8 @@ class Urls {
   static const String loginUrl = "$serviceUrl/login/";
   static const String getEmployeesDetailsListUrl =
       "$serviceUrl/view_all_employees/";
+  static const String getPresentEmployeesListUrl =
+      "$serviceUrl/view_present_employees/";
   static const String addEmployeeUrl = "$serviceUrl/add_employee/";
   static const String addProductUrl = "$serviceUrl/add_product/";
   static const String updateProductUrl = "$serviceUrl/update_product/";
