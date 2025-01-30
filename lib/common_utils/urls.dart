@@ -26,6 +26,8 @@ class Urls {
   static const String getFeedbackListUrl = "$serviceUrl/view_feedback/";
   static const String getEmployeeAttendanceRecordUrl =
       "$serviceUrl/attendance_record/";
+  static const String approveLeaveUrl = "$serviceUrl/approve_leave/";
+  static const String rejectLeaveUrl = "$serviceUrl/reject_leave/";
 
   static const String getEmployeeWorksUrl =
       "$serviceUrl/employee_view_assigned_repairs/";
