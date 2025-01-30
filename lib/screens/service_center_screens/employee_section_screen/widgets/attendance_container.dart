@@ -18,11 +18,11 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
   Color _getColor() {
     // "present", , "onleave"
     switch (widget.status) {
-      case "present":
+      case "Present":
         return Colors.greenAccent;
-      case "absent":
+      case "Absent":
         return Colors.redAccent;
-      case "leave approved":
+      case "Leave Approved":
         return Colors.blueAccent;
       default:
         return Colors.orangeAccent;
@@ -142,7 +142,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
               ),
             ],
           ),
-          widget.status == "absent"
+          widget.status == "Absent"
               ? Row(
                   children: [
                     ElevatedButton(

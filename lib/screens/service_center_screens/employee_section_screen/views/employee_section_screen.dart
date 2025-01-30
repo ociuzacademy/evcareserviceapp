@@ -1,44 +1,9 @@
-import 'dart:math';
-
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/attendance_list.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/employees_list.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/utils/helper.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeSectionScreen extends StatefulWidget {
   const EmployeeSectionScreen({super.key});
-
-  static List<Map<String, dynamic>> employees = List.generate(
-    10,
-    (index) {
-      return {
-        "id": index,
-        "employeeName": "Employee - ${index + 1}",
-        "email": Helper.generateRandomEmail(),
-        "phoneNumber": Helper.generateRandomIndianMobileNumber(),
-      };
-    },
-  );
-
-  static List<Map<String, dynamic>> attendanceList = List.generate(
-    employees.length,
-    (index) {
-      final random = Random();
-      List<String> attendanceStatuses = [
-        "present",
-        "absent",
-        "leave approved",
-        "leave rejected"
-      ];
-
-      return {
-        "id": index,
-        "employeeId": index,
-        "employeeName": employees[index]["employeeName"],
-        "status": attendanceStatuses[random.nextInt(attendanceStatuses.length)]
-      };
-    },
-  );
 
   @override
   State<EmployeeSectionScreen> createState() => _EmployeeSectionScreenState();
@@ -102,12 +67,7 @@ class _EmployeeSectionScreenState extends State<EmployeeSectionScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          const EmployeesList(),
-          AttendanceList(
-            attendanceList: EmployeeSectionScreen.attendanceList,
-          )
-        ],
+        children: const [EmployeesList(), AttendanceList()],
       ),
     );
   }
