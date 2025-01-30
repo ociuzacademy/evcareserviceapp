@@ -2,6 +2,8 @@
 import 'package:evcareserviceapp/common_utils/constants.dart';
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_attendance_status_model.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/get_employee_attendance_status.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/submit_employee_attendance.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/disabled_padded_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,23 @@ class EmployeeAttendanceSection extends StatefulWidget {
 }
 
 class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
-  bool _isPresentToday = false;
+  bool? _isPresentToday;
   bool _isSubmittingAttendance = false;
-  late TimeOfDay _loginTime;
+  TimeOfDay? _loginTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentAttendanceStatus();
+  }
+
+  Future<void> _getCurrentAttendanceStatus() async {
+    final EmployeeAttendanceStatusModel attendanceStatusModel =
+        await getEmployeeAttendanceStatus();
+    setState(() {
+      _isPresentToday = attendanceStatusModel.attendance;
+    });
+  }
 
   String _getAttendanceStatus() {
     final now = DateTime.now();
@@ -89,8 +105,10 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
   Widget build(BuildContext context) {
     final String attendanceStatus = _getAttendanceStatus();
 
-    if (_isPresentToday) {
-      final String loginTimeFormat = _loginTime.format(context);
+    if (_isPresentToday != null && _isPresentToday == true) {
+      final String loginTimeFormat = _loginTime != null
+          ? _loginTime!.format(context)
+          : TimeOfDay.now().format(context);
       return Text(
         "Login at $loginTimeFormat",
         style: const TextStyle(
@@ -100,32 +118,40 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
         ),
       );
     }
-    return _isSubmittingAttendance
+    return _isPresentToday == null
         ? const Center(
             child: CircularProgressIndicator(
               color: Colors.green,
             ),
           )
-        : Column(
-            children: [
-              (!_isPresentToday && attendanceStatus.isNotEmpty)
-                  ? const DisabledPaddedElevatedButton(
-                      buttonText: "No Attendance",
-                    )
-                  : PaddedElevatedButton(
-                      buttonText: "Mark Attendance",
-                      onPressed: _markAttendance,
-                    ),
-              if (attendanceStatus.isNotEmpty)
-                Text(
-                  attendanceStatus,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+        : _isSubmittingAttendance
+            ? const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.green,
                 ),
-            ],
-          );
+              )
+            : Column(
+                children: [
+                  (_isPresentToday == null &&
+                          _isPresentToday == false &&
+                          attendanceStatus.isNotEmpty)
+                      ? const DisabledPaddedElevatedButton(
+                          buttonText: "No Attendance",
+                        )
+                      : PaddedElevatedButton(
+                          buttonText: "Mark Attendance",
+                          onPressed: _markAttendance,
+                        ),
+                  if (attendanceStatus.isNotEmpty)
+                    Text(
+                      attendanceStatus,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                ],
+              );
   }
 }
