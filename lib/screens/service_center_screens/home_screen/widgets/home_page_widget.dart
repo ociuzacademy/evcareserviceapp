@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/views/add_employee_screen.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/employee_count_widget.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/employees_details_list_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -39,17 +40,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 height: screenSize.height * 0.01,
               ),
             ),
-            // SliverToBoxAdapter(
-            //   child: Text(
-            //     "Total number of employees: ${widget.totalNumberOfEmployees}",
-            //     textAlign: TextAlign.center,
-            //     style: const TextStyle(
-            //       color: Colors.white,
-            //       fontSize: 20,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
+            const EmployeeCountWidget(),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: screenSize.height * 0.01,
