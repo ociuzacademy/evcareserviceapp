@@ -78,6 +78,7 @@ class _AttendanceListState extends State<AttendanceList> {
             AttendanceRecordModel employeeAttendanceData =
                 attendanceRecord[index];
             return AttendanceContainer(
+              employeeId: employeeAttendanceData.id,
               employeeName: employeeAttendanceData.name,
               status: employeeAttendanceData.status,
             );

@@ -7,8 +7,10 @@ class LocalStorage {
     await preferences.setBool(PreferenceKeys.isFirstLaunch, false);
   }
 
-  static Future<void> userLogin(
-      {required String accountType, required userId}) async {
+  static Future<void> userLogin({
+    required String accountType,
+    required userId,
+  }) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setBool(PreferenceKeys.isLoggedIn, true);
     await preferences.setString(PreferenceKeys.userType, accountType);
