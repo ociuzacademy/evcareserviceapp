@@ -111,98 +111,83 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    return _isLoggingIn
-        ? const Center(
-            child: CircularProgressIndicator(
-              color: Colors.green,
-            ),
-          )
-        : LayoutBuilder(
-            builder: (context, constraints) {
-              if (constraints.maxWidth < 600) {
-                // Small screen: Display a column
-                return Center(
-                  child: SingleChildScrollView(
-                    child: SizedBox(
-                      height: screenSize.height * 0.6,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(widget.imageUrl),
-                            radius: 90,
-                          ),
-                          SizedBox(
-                            height: screenSize.height * 0.001,
-                          ),
-                          SizedBox(
-                            height: screenSize.height * 0.35,
-                            width: screenSize.width * 0.75,
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                children: [
-                                  FormTextField(
-                                    textFieldIcon:
-                                        const Icon(Icons.perm_identity),
-                                    hintText: 'Enter your username',
-                                    validator: (String? value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter username';
-                                      }
-                                      return null;
-                                    },
-                                    formTextController: _usernameController,
-                                  ),
-                                  SizedBox(
-                                    height: screenSize.height * 0.025,
-                                  ),
-                                  PasswordTextField(
-                                    hintText: 'Enter your password',
-                                    validator: (String? value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter password';
-                                      }
-
-                                      if (value.length < 6) {
-                                        return 'Password must have at least 6 characters';
-                                      }
-                                      return null;
-                                    },
-                                    passwordTextController: _passwordController,
-                                  ),
-                                  SizedBox(
-                                    height: screenSize.height * 0.025,
-                                  ),
-                                  RichTextWidget(
-                                    bottomMessage: widget.bottomMessage,
-                                    formRedirect: const RegisterScreen(),
-                                  ),
-                                  PaddedElevatedButton(
-                                    onPressed: _serviceCentreLogin,
-                                    buttonText: "Login",
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                // Large screen: Display a row
-                return Center(
-                  child: Row(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: _isLoggingIn
+          ? const Center(
+              child: CircularProgressIndicator(
+                color: Colors.green,
+              ),
+            )
+          : Center(
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: screenSize.height * 0.6,
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset("assets/images/login_screen.png"),
+                      CircleAvatar(
+                        backgroundImage: AssetImage(widget.imageUrl),
+                        radius: 90,
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.0125,
+                      ),
+                      SizedBox(
+                        height: screenSize.height * 0.35,
+                        width: screenSize.width * 0.75,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              FormTextField(
+                                textFieldIcon: const Icon(Icons.perm_identity),
+                                hintText: 'Enter your username',
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter username';
+                                  }
+                                  return null;
+                                },
+                                formTextController: _usernameController,
+                              ),
+                              SizedBox(
+                                height: screenSize.height * 0.0125,
+                              ),
+                              PasswordTextField(
+                                hintText: 'Enter your password',
+                                validator: (String? value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter password';
+                                  }
+
+                                  if (value.length < 6) {
+                                    return 'Password must have at least 6 characters';
+                                  }
+                                  return null;
+                                },
+                                passwordTextController: _passwordController,
+                              ),
+                              PaddedElevatedButton(
+                                onPressed: _serviceCentreLogin,
+                                buttonText: "Login",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                );
-              }
-            },
-          );
+                ),
+              ),
+            ),
+      persistentFooterButtons: [
+        RichTextWidget(
+          bottomMessage: widget.bottomMessage,
+          formRedirect: const RegisterScreen(),
+        ),
+      ],
+      persistentFooterAlignment: AlignmentDirectional.center,
+    );
   }
 }
