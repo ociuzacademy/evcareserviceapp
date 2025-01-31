@@ -28,10 +28,15 @@ class RepairRequestList extends StatelessWidget {
           Icons.electric_car,
           color: Colors.yellow,
         );
-      default:
+      case "Vehicle Delivered":
         return const Icon(
           Icons.receipt,
           color: Colors.greenAccent,
+        );
+      default:
+        return const Icon(
+          Icons.feedback,
+          color: Colors.blueAccent,
         );
     }
   }

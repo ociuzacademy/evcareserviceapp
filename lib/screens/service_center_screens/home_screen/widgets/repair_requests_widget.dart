@@ -22,6 +22,7 @@ enum RequestOption {
     "Repair Completed",
     "Repair Completed",
   ),
+  feedbackSubmitted("Feedback Submitted", "Feedback Submitted"),
   vehicleDelivered("Vehicle Delivered", "Vehicle Delivered");
 
   const RequestOption(this.label, this.value);
@@ -79,6 +80,11 @@ class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
         return repairRequests
             .where((request) =>
                 request.status == RequestOption.vehicleDelivered.value)
+            .toList();
+      case RequestOption.feedbackSubmitted:
+        return repairRequests
+            .where((request) =>
+                request.status == RequestOption.feedbackSubmitted.value)
             .toList();
       default:
         return repairRequests;
