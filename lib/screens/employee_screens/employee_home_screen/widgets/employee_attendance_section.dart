@@ -129,29 +129,28 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
               )
             : Column(
                 children: [
-                  (_isPresentToday != null &&
-                          _isPresentToday == false &&
-                          attendanceStatus.isNotEmpty)
+                  (_isPresentToday == false && attendanceStatus.isNotEmpty)
                       ? const SizedBox()
                       : PaddedElevatedButton(
                           buttonText: "Mark Attendance",
                           onPressed: _markAttendance,
                         ),
-                  if (attendanceStatus.isNotEmpty)
-                    SizedBox(
-                      height: screenSize.height * 0.5,
-                      width: screenSize.width,
-                      child: Center(
-                        child: Text(
-                          attendanceStatus,
-                          style: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  attendanceStatus.isNotEmpty
+                      ? SizedBox(
+                          height: screenSize.height * 0.5,
+                          width: screenSize.width,
+                          child: Center(
+                            child: Text(
+                              attendanceStatus,
+                              style: const TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
+                        )
+                      : const SizedBox(),
                 ],
               );
   }
