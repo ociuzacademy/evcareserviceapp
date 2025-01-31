@@ -106,12 +106,18 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
     final String attendanceStatus = _getAttendanceStatus();
 
     if (_isPresentToday != null && _isPresentToday == true) {
-      return const Text(
-        "Congratulations, You have successfully logged in.",
-        style: TextStyle(
-          color: Colors.green,
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
+      return SizedBox(
+        height: screenSize.height * 0.5,
+        width: screenSize.width,
+        child: const Center(
+          child: Text(
+            "Congratulations, You have successfully logged in.",
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
         ),
       );
     }
