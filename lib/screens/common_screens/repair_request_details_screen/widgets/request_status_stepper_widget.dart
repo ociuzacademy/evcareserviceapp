@@ -19,7 +19,9 @@ class RequestStatusStepperWidget extends StatelessWidget {
             ? 2
             : currentStatus == "Repair Completed"
                 ? 3
-                : 4;
+                : currentStatus == "Vehicle Delivered"
+                    ? 4
+                    : 5;
 
     return EasyStepper(
       activeStep: activeStep,
@@ -34,7 +36,7 @@ class RequestStatusStepperWidget extends StatelessWidget {
       stepShape: StepShape.rRectangle,
       stepBorderRadius: 15,
       borderThickness: 2,
-      internalPadding: 25,
+      internalPadding: 40,
       stepRadius: 28,
       finishedStepBorderColor: Colors.green,
       finishedStepTextColor: Colors.green,
@@ -108,6 +110,24 @@ class RequestStatusStepperWidget extends StatelessWidget {
           ),
           customTitle: Text(
             "Vehicle Delivered",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: activeStep >= 0 ? Colors.white : Colors.grey,
+            ),
+          ),
+        ),
+        EasyStep(
+          customStep: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Opacity(
+              opacity: activeStep >= 4 ? 1 : 0.3,
+              child: Image.asset(
+                "assets/icons/icons8-feedback-66.png",
+              ),
+            ),
+          ),
+          customTitle: Text(
+            "Feedback Submitted",
             textAlign: TextAlign.center,
             style: TextStyle(
               color: activeStep >= 0 ? Colors.white : Colors.grey,
