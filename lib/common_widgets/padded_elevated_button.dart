@@ -12,8 +12,10 @@ class PaddedElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.025),
       child: ElevatedButton(
         style: const ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
