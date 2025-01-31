@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/constants.dart';
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_attendance_status_model.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/get_employee_attendance_status.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/submit_employee_attendance.dart';
-import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/widgets/disabled_padded_elevated_button.dart';
-import 'package:flutter/material.dart';
 
 class EmployeeAttendanceSection extends StatefulWidget {
   const EmployeeAttendanceSection({
@@ -21,7 +21,6 @@ class EmployeeAttendanceSection extends StatefulWidget {
 class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
   bool? _isPresentToday;
   bool _isSubmittingAttendance = false;
-  TimeOfDay? _loginTime;
 
   @override
   void initState() {
@@ -35,6 +34,7 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
     setState(() {
       _isPresentToday = attendanceStatusModel.attendance;
     });
+    print(_isPresentToday);
   }
 
   String _getAttendanceStatus() {
@@ -96,22 +96,19 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
       setState(() {
         _isPresentToday = true;
         _isSubmittingAttendance = false;
-        _loginTime = TimeOfDay.now();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     final String attendanceStatus = _getAttendanceStatus();
 
     if (_isPresentToday != null && _isPresentToday == true) {
-      final String loginTimeFormat = _loginTime != null
-          ? _loginTime!.format(context)
-          : TimeOfDay.now().format(context);
-      return Text(
-        "Login at $loginTimeFormat",
-        style: const TextStyle(
+      return const Text(
+        "Congratulations, You have successfully logged in.",
+        style: TextStyle(
           color: Colors.green,
           fontWeight: FontWeight.bold,
           fontSize: 20,
@@ -132,23 +129,27 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
               )
             : Column(
                 children: [
-                  (_isPresentToday == null &&
+                  (_isPresentToday != null &&
                           _isPresentToday == false &&
                           attendanceStatus.isNotEmpty)
-                      ? const DisabledPaddedElevatedButton(
-                          buttonText: "No Attendance",
-                        )
+                      ? const SizedBox()
                       : PaddedElevatedButton(
                           buttonText: "Mark Attendance",
                           onPressed: _markAttendance,
                         ),
                   if (attendanceStatus.isNotEmpty)
-                    Text(
-                      attendanceStatus,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: screenSize.height * 0.5,
+                      width: screenSize.width,
+                      child: Center(
+                        child: Text(
+                          attendanceStatus,
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                 ],
