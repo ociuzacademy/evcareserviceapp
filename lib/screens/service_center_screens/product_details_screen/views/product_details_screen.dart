@@ -69,7 +69,7 @@ class ProductDetailsScreen extends StatelessWidget {
         // Success State
         ProductItemModel productItem = snapshot.data!;
         String imageUrl = productItem.image == null
-            ? "https://placehold.co/200x200?text=No+Image+Available"
+            ? "assets/images/no_image_available.jpg"
             : "${Urls.baseUrl}/${productItem.image ?? ""}";
         double price = double.parse(productItem.price ?? "0.0");
 
@@ -96,7 +96,11 @@ class ProductDetailsScreen extends StatelessWidget {
                 children: [
                   Hero(
                     tag: "hero-$productId",
-                    child: Center(child: Image.network(imageUrl)),
+                    child: Center(
+                      child: productItem.image == null
+                          ? Image.asset(imageUrl)
+                          : Image.network(imageUrl),
+                    ),
                   ),
                   SizedBox(
                     height: screenSize.height * 0.005,

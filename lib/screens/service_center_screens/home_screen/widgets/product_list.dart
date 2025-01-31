@@ -91,7 +91,7 @@ class _ProductListState extends State<ProductList> {
               double price = double.parse(product.price ?? "0.0");
               // print(product.image == null);
               String imageUrl = product.image == null
-                  ? "https://placehold.co/200x200?text=No+Image+Available"
+                  ? "assets/images/no_image_available.jpg"
                   : "${Urls.baseUrl}/${product.image ?? ""}";
               return InkWell(
                 onTap: () => Navigator.of(context).push(
@@ -121,7 +121,9 @@ class _ProductListState extends State<ProductList> {
                           height: screenSize.height * 0.25,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: NetworkImage(imageUrl), // Corrected here
+                              image: product.image == null
+                                  ? AssetImage(imageUrl)
+                                  : NetworkImage(imageUrl), // Corrected here
                               fit: BoxFit.fitHeight,
                             ),
                             borderRadius: const BorderRadius.only(
