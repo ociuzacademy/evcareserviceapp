@@ -1,19 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
+import 'package:evcareserviceapp/common_utils/helper.dart';
+import 'package:evcareserviceapp/common_widgets/form_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
+import 'package:evcareserviceapp/common_widgets/password_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/rich_text_widget.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/models/location.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/services/service_centre_registration_service.dart';
+import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/email_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/phone_number_text_field.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
-
-import 'package:evcareserviceapp/common_widgets/password_text_field.dart';
-import 'package:evcareserviceapp/common_widgets/form_text_field.dart';
-import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
-import 'package:evcareserviceapp/common_widgets/rich_text_widget.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   final String imageUrl;

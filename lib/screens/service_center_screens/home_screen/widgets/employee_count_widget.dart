@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/employee_count_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_employees_count.dart';
-import 'package:flutter/material.dart';
 
 class EmployeeCountWidget extends StatelessWidget {
   const EmployeeCountWidget({super.key});

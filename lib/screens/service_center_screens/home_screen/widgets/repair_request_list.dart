@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/views/repair_request_details.dart';
 import 'package:flutter/material.dart';
 
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/views/repair_request_details.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/repair_request_model.dart';
 
 class RepairRequestList extends StatelessWidget {

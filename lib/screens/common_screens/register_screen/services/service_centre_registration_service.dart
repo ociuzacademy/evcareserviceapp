@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_models/common_response_model.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/models/location.dart';
 

@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/services/add_product.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class AddToStoreScreen extends StatefulWidget {
   const AddToStoreScreen({super.key});

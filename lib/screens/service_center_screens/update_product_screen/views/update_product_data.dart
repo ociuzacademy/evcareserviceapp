@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/number_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/update_product_screen/services/update_product.dart';
 
 class UpdateProductData extends StatefulWidget {

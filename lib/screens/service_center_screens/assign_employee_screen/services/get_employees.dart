@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/models/employee_model.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/models/employee_model.dart';
 
 Future<List<EmployeeModel>> getEmployees() async {
   try {

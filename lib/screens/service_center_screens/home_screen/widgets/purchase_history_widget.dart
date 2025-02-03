@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/purchase_history_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_purchase_history.dart';
-import 'package:flutter/material.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/purchase_history_tile.dart';
 
 class PurchaseHistoryWidget extends StatefulWidget {

@@ -1,16 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/models/repair_request_item_model.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/complete_repair.dart';
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/single_repair_details.dart';
-import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/get_repair_request_item.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/details_row.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/repair_dates_display_widget.dart';
-
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/models/repair_request_item_model.dart';
-import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/services/get_repair_request_item.dart';
 import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/request_status_stepper_widget.dart';
+import 'package:evcareserviceapp/screens/common_screens/repair_request_details_screen/widgets/single_repair_details.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/assign_employee_screen/views/assign_employee_screen.dart';
 
 class RepairRequestDetails extends StatefulWidget {
