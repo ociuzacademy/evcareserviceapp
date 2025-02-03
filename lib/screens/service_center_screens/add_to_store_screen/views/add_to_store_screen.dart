@@ -85,10 +85,10 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
       });
       try {
         final response = await addProduct(
-          productName: _productNameController.text,
-          productDescription: _productDescriptionController.text,
-          productPrice: _productPriceController.text,
-          productQuantity: _productQuantityController.text,
+          productName: _productNameController.text.trim(),
+          productDescription: _productDescriptionController.text.trim(),
+          productPrice: _productPriceController.text.trim(),
+          productQuantity: _productQuantityController.text.trim(),
           productImage: _imageFile!,
         );
 

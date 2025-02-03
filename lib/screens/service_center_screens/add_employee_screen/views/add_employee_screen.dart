@@ -47,11 +47,11 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
       });
       try {
         final response = await addEmployee(
-          username: _employeeUsernameController.text,
-          employeeName: _employeeNameController.text,
-          email: _employeeEmailController.text,
-          phoneNumber: _employeePhoneNumberController.text,
-          password: _employeePasswordController.text,
+          username: _employeeUsernameController.text.trim(),
+          employeeName: _employeeNameController.text.trim(),
+          email: _employeeEmailController.text.trim(),
+          phoneNumber: _employeePhoneNumberController.text.trim(),
+          password: _employeePasswordController.text.trim(),
         );
         if (response.status == "success" && mounted) {
           ScaffoldMessenger.of(context).showSnackBar(

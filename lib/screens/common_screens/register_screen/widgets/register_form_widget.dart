@@ -118,12 +118,12 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       });
       try {
         final response = await registerServiceCentre(
-          userName: _usernameController.text,
-          serviceCentreName: _serviceCentreNameController.text,
-          address: _addressController.text,
-          email: _emailController.text,
-          phoneNumber: _phoneNumberController.text,
-          password: _passwordController.text,
+          userName: _usernameController.text.trim(),
+          serviceCentreName: _serviceCentreNameController.text.trim(),
+          address: _addressController.text.trim(),
+          email: _emailController.text.trim(),
+          phoneNumber: _phoneNumberController.text.trim(),
+          password: _passwordController.text.trim(),
           location: Location(
             latitude: _latitude ?? 0.0,
             longitude: _longitude ?? 0.0,
