@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
-import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/get_employee_profile_details.dart';
 import 'package:flutter/material.dart';
 
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/models/employee_profile_model.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/services/get_employee_profile_details.dart';
 
 class EmployeeProfileWidget extends StatefulWidget {
   const EmployeeProfileWidget({

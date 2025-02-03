@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
-import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/screens/common_screens/introduction_screen/views/on_boarding_widget.dart';
+import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
+import 'package:evcareserviceapp/screens/employee_screens/employee_home_screen/views/employee_home_screen.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

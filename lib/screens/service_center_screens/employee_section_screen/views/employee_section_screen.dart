@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/attendance_list.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/employee_section_screen/widgets/employees_list.dart';
-import 'package:flutter/material.dart';
 
 class EmployeeSectionScreen extends StatefulWidget {
   const EmployeeSectionScreen({super.key});

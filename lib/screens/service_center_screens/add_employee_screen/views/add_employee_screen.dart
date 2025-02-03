@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field_without_icon.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
@@ -5,7 +7,6 @@ import 'package:evcareserviceapp/screens/service_center_screens/add_employee_scr
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/widgets/email_text_field_without_icon.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/widgets/password_text_field_without_icon.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_employee_screen/widgets/phone_number_text_field_without_icon.dart';
-import 'package:flutter/material.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   const AddEmployeeScreen({super.key});

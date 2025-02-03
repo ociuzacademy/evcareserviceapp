@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/add_to_store_screen/views/add_to_store_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/product_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_products.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/views/product_details_screen.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/custom_list_tile.dart';
-import 'package:flutter/material.dart';
+import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/views/product_details_screen.dart';
 
 class ProductList extends StatefulWidget {
   const ProductList({super.key});

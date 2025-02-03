@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/service_center_profile_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_service_centre_profile_details.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/store_open_status.dart';
-import 'package:flutter/material.dart';
 
 class ServiceCentreDetails extends StatefulWidget {
   const ServiceCentreDetails({

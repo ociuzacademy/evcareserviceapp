@@ -1,9 +1,9 @@
-import 'package:evcareserviceapp/common_utils/local_storage.dart';
-import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+
+import 'package:evcareserviceapp/common_utils/local_storage.dart';
+import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 
 class OnBoardingWidget extends StatefulWidget {
   const OnBoardingWidget({super.key});

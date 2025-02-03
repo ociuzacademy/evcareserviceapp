@@ -1,5 +1,6 @@
-import 'package:evcareserviceapp/screens/common_screens/login_screen/widgets/login_form_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'package:evcareserviceapp/screens/common_screens/login_screen/widgets/login_form_widget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

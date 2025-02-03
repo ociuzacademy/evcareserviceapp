@@ -1,9 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/models/product_item_model.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/services/get_product_details.dart';
-import 'package:flutter/material.dart';
-
 import 'package:evcareserviceapp/screens/service_center_screens/update_product_screen/views/update_product_data.dart';
 
 class ProductDetailsScreen extends StatelessWidget {

@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+
 import 'package:evcareserviceapp/common_models/common_response_model.dart';
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
-import 'package:http/http.dart' as http;
 
 Future<CommonResponseModel> addProduct({
   required String productName,

@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:evcareserviceapp/common_utils/urls.dart';
+
 import 'package:http/http.dart' as http;
 
+import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/product_details_screen/models/product_item_model.dart';
 
 Future<ProductItemModel> getProductDetails({required int productId}) async {
