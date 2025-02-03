@@ -48,8 +48,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       });
       try {
         final response = await userLogin(
-          userName: _usernameController.text,
-          password: _passwordController.text,
+          userName: _usernameController.text.trim(),
+          password: _passwordController.text.trim(),
         );
         if (response.status == "success") {
           if (mounted) {
