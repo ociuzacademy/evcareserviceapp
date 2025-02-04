@@ -34,7 +34,6 @@ class _EmployeeAttendanceSectionState extends State<EmployeeAttendanceSection> {
     setState(() {
       _isPresentToday = attendanceStatusModel.attendance;
     });
-    print(_isPresentToday);
   }
 
   String _getAttendanceStatus() {
