@@ -133,7 +133,7 @@ class _RepairRequestsWidgetState extends State<RepairRequestsWidget> {
               children: [
                 Image.asset("assets/images/empty.png"),
                 const Text(
-                  "No products found",
+                  "No repair requests found",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

@@ -68,7 +68,7 @@ class _EmployeesDetailsListWidgetState
             child: Center(
               child: Column(
                 children: [
-                  Image.asset("assets/images/empty.png"),
+                  Image.asset("assets/images/no_one_available.jpg"),
                   const Text(
                     "No employees found",
                     style: TextStyle(
