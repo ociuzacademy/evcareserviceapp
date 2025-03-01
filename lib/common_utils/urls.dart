@@ -1,5 +1,5 @@
 class Urls {
-  static const String baseUrl = "https://417sptdw-8001.inc1.devtunnels.ms";
+  static const String baseUrl = "https://5nr43kq1-8001.inc1.devtunnels.ms";
   static const String serviceUrl = "$baseUrl/service";
 
   static const String registerUrl = "$serviceUrl/service_register/";
