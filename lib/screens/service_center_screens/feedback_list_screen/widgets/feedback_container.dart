@@ -42,12 +42,12 @@ class FeedbackContainer extends StatelessWidget {
                 titleStyle: const TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
                 valueStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               CustomColumnWidget(
@@ -57,12 +57,12 @@ class FeedbackContainer extends StatelessWidget {
                 titleStyle: const TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
                 valueStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               CustomColumnWidget(
@@ -72,12 +72,12 @@ class FeedbackContainer extends StatelessWidget {
                 titleStyle: const TextStyle(
                   color: Colors.grey,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
                 valueStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
             ],
@@ -92,12 +92,12 @@ class FeedbackContainer extends StatelessWidget {
             titleStyle: const TextStyle(
               color: Colors.grey,
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 15,
             ),
             valueStyle: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 15,
             ),
           ),
         ],

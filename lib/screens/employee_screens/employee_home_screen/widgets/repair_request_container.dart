@@ -17,7 +17,7 @@ class RepairRequestContainer extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
 
     return Container(
-      height: screenSize.height * 0.13,
+      height: screenSize.height * 0.16,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         border: Border.all(
@@ -40,14 +40,14 @@ class RepairRequestContainer extends StatelessWidget {
                     "Customer Name",
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                   Text(
                     customerName,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -59,14 +59,14 @@ class RepairRequestContainer extends StatelessWidget {
                     "Vehicle Number",
                     style: TextStyle(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                   Text(
                     vehicleNumber,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -74,7 +74,7 @@ class RepairRequestContainer extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: screenSize.height * 0.005,
+            height: screenSize.height * 0.0075,
           ),
           const Divider(
             color: Colors.green,
@@ -86,14 +86,14 @@ class RepairRequestContainer extends StatelessWidget {
                 "Request Status",
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
               Text(
                 currentStatus,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: 15,
                 ),
               ),
             ],

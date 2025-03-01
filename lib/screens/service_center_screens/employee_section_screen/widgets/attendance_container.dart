@@ -183,7 +183,7 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
             ),
           )
         : Container(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.001),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.green,

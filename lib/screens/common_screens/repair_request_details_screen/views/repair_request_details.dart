@@ -159,7 +159,7 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -178,7 +178,7 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontSize: 20,
                   ),
                 ),
               ],
@@ -196,7 +196,7 @@ class _RepairRequestDetailsState extends State<RepairRequestDetails> {
             centerTitle: true,
             titleTextStyle: const TextStyle(
               color: Colors.white,
-              fontSize: 25,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
             actions: [

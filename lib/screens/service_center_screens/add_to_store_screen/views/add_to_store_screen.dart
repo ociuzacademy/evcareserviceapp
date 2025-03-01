@@ -109,7 +109,7 @@ class _AddToStoreScreenState extends State<AddToStoreScreen> {
           final errorMessage = e.toString();
           showErrorDialogue(
             context,
-            "Adding new employee failed due to $errorMessage",
+            "Adding new product failed due to $errorMessage",
           );
         }
       } finally {

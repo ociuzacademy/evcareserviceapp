@@ -55,10 +55,10 @@ class _EmployeeHompPageWidgetState extends State<EmployeeHompPageWidget>
                 text: "Attendance",
               ),
               Tab(
-                text: "Pending Works",
+                text: "Pending",
               ),
               Tab(
-                text: "Completed Works",
+                text: "Completed",
               ),
             ],
           ),
@@ -122,7 +122,8 @@ class _EmployeeHompPageWidgetState extends State<EmployeeHompPageWidget>
           final completedRepairRequests = employeeWorks
               .where((work) =>
                   work.status == 'Repair Completed' ||
-                  work.status == 'Vehicle Delivered')
+                  work.status == 'Vehicle Delivered' ||
+                  work.status == "Feedback Submitted")
               .toList();
           return TabBarView(
             controller: _tabController,

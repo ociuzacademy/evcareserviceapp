@@ -28,9 +28,9 @@ class PurchaseHistoryTile extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.01),
       width: double.infinity,
-      height: screenSize.height * 0.13,
+      height: screenSize.height * 0.15,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(10),
