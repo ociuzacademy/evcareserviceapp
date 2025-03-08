@@ -70,7 +70,7 @@ class ProductDetailsScreen extends StatelessWidget {
         ProductItemModel productItem = snapshot.data!;
         String imageUrl = productItem.image == null
             ? "assets/images/no_image_available.jpg"
-            : "${Urls.baseUrl}/${productItem.image ?? ""}";
+            : "${Urls.baseUrl}${productItem.image ?? ""}";
         double price = double.parse(productItem.price ?? "0.0");
 
         return Scaffold(
