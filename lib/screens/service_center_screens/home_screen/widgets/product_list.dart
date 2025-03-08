@@ -93,7 +93,7 @@ class _ProductListState extends State<ProductList> {
               // print(product.image == null);
               String imageUrl = product.image == null
                   ? "assets/images/no_image_available.jpg"
-                  : "${Urls.baseUrl}/${product.image ?? ""}";
+                  : "${Urls.baseUrl}${product.image ?? ""}";
               return InkWell(
                 onTap: () => Navigator.of(context).push(
                   MaterialPageRoute(
