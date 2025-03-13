@@ -72,7 +72,7 @@ class _AttendanceListState extends State<AttendanceList> {
         List<AttendanceRecordModel> attendanceRecord = snapshot.data!;
         return ListView.separated(
           padding: EdgeInsets.symmetric(
-            horizontal: screenSize.width * 0.005,
+            horizontal: screenSize.width * 0.025,
             vertical: screenSize.height * 0.025,
           ),
           itemBuilder: (context, index) {

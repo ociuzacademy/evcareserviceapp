@@ -28,9 +28,12 @@ class PurchaseHistoryTile extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(10),
-      padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.01),
+      padding: EdgeInsets.symmetric(
+        horizontal: screenSize.width * 0.025,
+        vertical: screenSize.height * 0.025,
+      ),
       width: double.infinity,
-      height: screenSize.height * 0.15,
+      height: screenSize.height * 0.21725,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(10),
@@ -112,6 +115,14 @@ class PurchaseHistoryTile extends StatelessWidget {
                 ),
                 truncateLength: 20,
               ),
+            ],
+          ),
+          const Divider(
+            color: Colors.green,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
               CustomColumnWidget(
                 title: "Quantity",
                 value: quantity.toString(),

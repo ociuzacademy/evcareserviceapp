@@ -33,7 +33,7 @@ class EmployeeContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            employeeName,
+            "Name: $employeeName",
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,

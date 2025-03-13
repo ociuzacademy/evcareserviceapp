@@ -87,6 +87,9 @@ class _ProductListState extends State<ProductList> {
           // Success State
           List<ProductModel> products = snapshot.data!.toList();
           return ListView.separated(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.025,
+            ),
             itemBuilder: (context, index) {
               ProductModel product = products[index];
               double price = double.parse(product.price ?? "0.0");
@@ -112,6 +115,7 @@ class _ProductListState extends State<ProductList> {
                       Radius.circular(10),
                     ),
                   ),
+                  padding: const EdgeInsets.all(8),
                   child: Card(
                     color: Colors.black,
                     borderOnForeground: true,
