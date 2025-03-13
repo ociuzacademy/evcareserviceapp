@@ -183,7 +183,11 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
             ),
           )
         : Container(
-            padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.001),
+            // height: screenSize.height * 0.16,
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.025,
+              vertical: screenSize.height * 0.0125,
+            ),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.green,
@@ -193,90 +197,120 @@ class _AttendanceContainerState extends State<AttendanceContainer> {
                 Radius.circular(10),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.employeeName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screenSize.height * 0.005,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Status: ",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: widget.status,
-                            style: TextStyle(
-                              color: _getColor(),
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Name",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: screenSize.height * 0.005,
+                        ),
+                        Text(
+                          widget.employeeName,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const Text(
+                          "Status",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenSize.height * 0.005,
+                        ),
+                        Text(
+                          widget.status,
+                          style: TextStyle(
+                            color: _getColor(),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
+                if (widget.status == "Absent")
+                  const Divider(
+                    color: Colors.green,
+                  ),
                 widget.status == "Absent"
                     ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.redAccent,
-                              foregroundColor: Colors.black,
-                              textStyle: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: screenSize.height * 0.005,
+                          ),
+                          SizedBox(
+                            height: 30,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.redAccent,
+                                foregroundColor: Colors.black,
+                                textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              onPressed: () async {
+                                _showActionDialogueBox(
+                                  title: "Reject Leave",
+                                  content:
+                                      "Do you want to reject this employee's leave?",
+                                  actionText: "Reject",
+                                  onActionPressed: _rejectLeave,
+                                );
+                              },
+                              child: const Text("Reject"),
                             ),
-                            onPressed: () async {
-                              _showActionDialogueBox(
-                                title: "Reject Leave",
-                                content:
-                                    "Do you want to reject this employee's leave?",
-                                actionText: "Reject",
-                                onActionPressed: _rejectLeave,
-                              );
-                            },
-                            child: const Text("Reject"),
                           ),
                           SizedBox(
                             width: screenSize.width * 0.05,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.greenAccent,
-                              foregroundColor: Colors.black,
-                              textStyle: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: 30,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.greenAccent,
+                                foregroundColor: Colors.black,
+                                textStyle: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
+                              onPressed: () async {
+                                _showActionDialogueBox(
+                                  title: "Approve Leave",
+                                  content:
+                                      "Do you want to approve this employee's leave?",
+                                  actionText: "Accept",
+                                  onActionPressed: _approveLeave,
+                                );
+                              },
+                              child: const Text("Approve"),
                             ),
-                            onPressed: () async {
-                              _showActionDialogueBox(
-                                title: "Approve Leave",
-                                content:
-                                    "Do you want to approve this employee's leave?",
-                                actionText: "Accept",
-                                onActionPressed: _approveLeave,
-                              );
-                            },
-                            child: const Text("Approve"),
                           ),
                         ],
                       )

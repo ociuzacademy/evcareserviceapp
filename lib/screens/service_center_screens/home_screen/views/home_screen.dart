@@ -157,6 +157,27 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ListTile(
               leading: const Icon(
+                Icons.edit,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'Edit Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              onTap: () {
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: (context) => const FeedbackListScreen(),
+                //   ),
+                // );
+              },
+            ),
+            ListTile(
+              leading: const Icon(
                 Icons.feedback,
                 color: Colors.white,
               ),
@@ -203,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
               ),
               title: const Text(
-                'Log Out',
+                'Log out',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

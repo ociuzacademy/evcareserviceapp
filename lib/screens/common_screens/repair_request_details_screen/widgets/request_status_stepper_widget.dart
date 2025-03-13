@@ -36,7 +36,7 @@ class RequestStatusStepperWidget extends StatelessWidget {
       stepShape: StepShape.rRectangle,
       stepBorderRadius: 15,
       borderThickness: 2,
-      internalPadding: 40,
+      internalPadding: 55,
       stepRadius: 28,
       finishedStepBorderColor: Colors.green,
       finishedStepTextColor: Colors.green,
