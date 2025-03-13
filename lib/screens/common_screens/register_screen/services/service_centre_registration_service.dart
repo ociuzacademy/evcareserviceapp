@@ -15,34 +15,46 @@ Future<CommonResponseModel> registerServiceCentre({
   required String phoneNumber,
   required String password,
   required Location location,
+  required File image,
 }) async {
   try {
-    Map<String, dynamic> params = {
-      "username": userName,
-      "name": serviceCentreName,
-      "address": address,
-      "email": email,
-      "phone": phoneNumber,
-      "password": password,
-      "latitude": location.latitude,
-      "longitude": location.longitude,
-    };
+    // Create a multipart request
+    var request = http.MultipartRequest("POST", Uri.parse(Urls.registerUrl));
 
-    final resp = await http.post(
-      Uri.parse(Urls.registerUrl),
-      body: jsonEncode(params),
-      headers: <String, String>{
-        "Content-Type": "application/json; charset=utf-8"
-      },
+    // Add text fields
+    request.fields['username'] = userName;
+    request.fields['name'] = serviceCentreName;
+    request.fields['address'] = address;
+    request.fields['email'] = email;
+    request.fields['phone'] = phoneNumber;
+    request.fields['password'] = password;
+    request.fields['latitude'] = location.latitude.toString();
+    request.fields['longitude'] = location.longitude.toString();
+
+    // Add the image file
+    var imageStream = http.ByteStream(image.openRead());
+    var imageLength = await image.length();
+    var multiPartFile = http.MultipartFile(
+      'image',
+      imageStream,
+      imageLength,
+      filename: image.path.split("/").last,
     );
+    request.files.add(multiPartFile);
+
+    // Send request
+    final resp = await request.send();
+
+    // Convert the response stream to a string
+    final responseBody = await resp.stream.bytesToString();
 
     if (resp.statusCode == 200) {
-      final dynamic decoded = jsonDecode(resp.body);
+      final dynamic decoded = jsonDecode(responseBody);
       final CommonResponseModel response =
           CommonResponseModel.fromJson(decoded);
       return response;
     } else {
-      final Map<String, dynamic> errorResponse = jsonDecode(resp.body);
+      final Map<String, dynamic> errorResponse = jsonDecode(responseBody);
       throw Exception(
         'Failed to register: ${errorResponse['message'] ?? 'Unknown error'}',
       );

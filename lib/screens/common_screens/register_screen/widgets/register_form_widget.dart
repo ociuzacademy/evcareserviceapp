@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -13,6 +15,7 @@ import 'package:evcareserviceapp/screens/common_screens/register_screen/services
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/email_text_field.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/phone_number_text_field.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterFormWidget extends StatefulWidget {
   final String imageUrl;
@@ -40,6 +43,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   double? _latitude;
   double? _longitude;
   bool _isRegistering = false;
+  File? _selectedImage;
 
   @override
   void dispose() {
@@ -109,26 +113,38 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     });
   }
 
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
+
   Future<void> _registerServiceCentre() async {
     if (_formKey.currentState!.validate() &&
         _latitude != null &&
-        _longitude != null) {
+        _longitude != null &&
+        _selectedImage != null) {
       setState(() {
         _isRegistering = true;
       });
       try {
         final response = await registerServiceCentre(
-          userName: _usernameController.text.trim(),
-          serviceCentreName: _serviceCentreNameController.text.trim(),
-          address: _addressController.text.trim(),
-          email: _emailController.text.trim(),
-          phoneNumber: _phoneNumberController.text.trim(),
-          password: _passwordController.text.trim(),
-          location: Location(
-            latitude: _latitude ?? 0.0,
-            longitude: _longitude ?? 0.0,
-          ),
-        );
+            userName: _usernameController.text.trim(),
+            serviceCentreName: _serviceCentreNameController.text.trim(),
+            address: _addressController.text.trim(),
+            email: _emailController.text.trim(),
+            phoneNumber: _phoneNumberController.text.trim(),
+            password: _passwordController.text.trim(),
+            location: Location(
+              latitude: _latitude ?? 0.0,
+              longitude: _longitude ?? 0.0,
+            ),
+            image: _selectedImage!);
         bool status = response.status == "success";
 
         if (status && mounted) {
@@ -163,7 +179,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         // Use context here because this is synchronous
         showErrorDialogue(
           context,
-          "Please fill all fields and get location",
+          "Please fill all fields, upload image and get location",
         );
       }
     }
@@ -191,6 +207,23 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                     ),
                     SizedBox(
                       height: screenSize.height * 0.001,
+                    ),
+                    GestureDetector(
+                      onTap: _pickImage,
+                      child: CircleAvatar(
+                        backgroundImage: _selectedImage != null
+                            ? FileImage(_selectedImage!)
+                            : null,
+                        backgroundColor: Colors.grey,
+                        radius: 90,
+                        child: _selectedImage == null
+                            ? const Icon(Icons.camera_alt,
+                                color: Colors.white, size: 40)
+                            : null,
+                      ),
+                    ),
+                    SizedBox(
+                      height: screenSize.height * 0.01,
                     ),
                     SizedBox(
                       height: screenSize.height * 0.75,
