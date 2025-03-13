@@ -26,10 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void _logout() async {
     await LocalStorage.serviceCentreLogout();
     if (mounted) {
-      Navigator.of(context).pushReplacement(
+      Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           builder: (context) => const LoginScreen(),
         ),
+        (route) => false,
       );
     }
   }
@@ -202,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.white,
               ),
               title: const Text(
-                'LogOut',
+                'Log Out',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
