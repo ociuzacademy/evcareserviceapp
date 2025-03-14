@@ -1,3 +1,4 @@
+import 'package:evcareserviceapp/screens/service_center_screens/edit_profile_screen/view/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
@@ -169,11 +170,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => const FeedbackListScreen(),
-                //   ),
-                // );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfileScreen(),
+                  ),
+                );
               },
             ),
             ListTile(

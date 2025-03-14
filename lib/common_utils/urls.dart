@@ -4,6 +4,7 @@ class Urls {
 
   static const String registerUrl = "$serviceUrl/service_register/";
   static const String loginUrl = "$serviceUrl/login/";
+  static const String editProfileUrl = "$serviceUrl/update_service_centre/";
   static const String getEmployeesDetailsListUrl =
       "$serviceUrl/view_all_employees/";
   static const String getEmployeesCountUrl = "$serviceUrl/employee_count/";
