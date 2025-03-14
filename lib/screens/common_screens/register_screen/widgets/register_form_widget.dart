@@ -210,12 +210,25 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                     ),
                     GestureDetector(
                       onTap: _pickImage,
-                      child: CircleAvatar(
-                        backgroundImage: _selectedImage != null
-                            ? FileImage(_selectedImage!)
-                            : null,
-                        backgroundColor: Colors.grey,
-                        radius: 90,
+                      child: Container(
+                        width: 360, // Adjust width as needed
+                        height: 180, // Adjust height as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          image: _selectedImage != null
+                              ? DecorationImage(
+                                  image: FileImage(_selectedImage!),
+                                  fit: BoxFit.cover,
+                                )
+                              : null,
+                          border: Border.all(
+                            color: Colors.green,
+                            width: 0.5,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
                         child: _selectedImage == null
                             ? const Icon(Icons.camera_alt,
                                 color: Colors.white, size: 40)

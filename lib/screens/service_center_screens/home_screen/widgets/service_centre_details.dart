@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_utils/urls.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/models/service_center_profile_model.dart';
-import 'package:evcareserviceapp/screens/service_center_screens/home_screen/services/get_service_centre_profile_details.dart';
+import 'package:evcareserviceapp/common_models/service_center_profile_model.dart';
+import 'package:evcareserviceapp/common_services/get_service_centre_profile_details.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/widgets/store_open_status.dart';
 
 class ServiceCentreDetails extends StatefulWidget {
@@ -67,7 +67,7 @@ class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
                 children: [
                   Image.asset("assets/images/empty.png"),
                   const Text(
-                    "No employee profile details found.",
+                    "No service centre profile details found.",
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
@@ -85,9 +85,19 @@ class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
         return SliverToBoxAdapter(
           child: Column(
             children: [
-              profileModel.image == null
-                  ? Image.asset("assets/images/service_center.jpeg")
-                  : Image.network("${Urls.baseUrl}/${profileModel.image!}"),
+              Container(
+                height: screenSize.height * 0.25,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: profileModel.image == null
+                        ? const AssetImage("assets/images/service_center.jpeg")
+                        : NetworkImage(
+                            "${Urls.baseUrl}/${profileModel.image!}",
+                          ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: screenSize.height * 0.01,
               ),
@@ -102,6 +112,7 @@ class _ServiceCentreDetailsState extends State<ServiceCentreDetails> {
               ),
               Text(
                 profileModel.address,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 18,

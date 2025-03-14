@@ -51,17 +51,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 color: Colors.green,
               ),
             ),
-            const SliverToBoxAdapter(
-              child: Text(
-                "Employees present today",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
             SliverToBoxAdapter(
               child: SizedBox(
                 height: screenSize.height * 0.01,

@@ -68,15 +68,7 @@ class _EmployeesDetailsListWidgetState
             child: Center(
               child: Column(
                 children: [
-                  Image.asset("assets/images/no_one_available.jpg"),
-                  const Text(
-                    "No employees found",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
-                  ),
+                  Image.asset("assets/images/no_employees_present_today.png"),
                 ],
               ),
             ),
@@ -85,20 +77,29 @@ class _EmployeesDetailsListWidgetState
 
         // Success State
         List<EmployeeDetailsModel> employees = snapshot.data!;
-        return SliverList.separated(
-          itemBuilder: (context, index) {
-            return EmployeeContainer(
-              employeeName: employees[index].name,
-              email: employees[index].email,
-              phoneNumber: employees[index].phoneNumber,
-            );
-          },
-          separatorBuilder: (context, index) {
-            return SizedBox(
-              height: screenSize.height * 0.01,
-            );
-          },
-          itemCount: employees.length,
+        return SliverList.list(
+          children: [
+            const Text(
+              "Employees present today",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            ListView.separated(
+              itemBuilder: (context, index) => EmployeeContainer(
+                employeeName: employees[index].name,
+                email: employees[index].email,
+                phoneNumber: employees[index].phoneNumber,
+              ),
+              separatorBuilder: (context, index) => SizedBox(
+                height: screenSize.height * 0.01,
+              ),
+              itemCount: employees.length,
+            )
+          ],
         );
       },
     );
