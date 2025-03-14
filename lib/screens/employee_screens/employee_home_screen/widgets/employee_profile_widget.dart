@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:evcareserviceapp/screens/employee_screens/update_employee_screen/view/edit_employee_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:evcareserviceapp/common_utils/local_storage.dart';
@@ -198,9 +199,24 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                   ),
                 ],
               ),
-              PaddedElevatedButton(
-                buttonText: "Logout",
-                onPressed: _logout,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  PaddedElevatedButton(
+                    buttonText: "Edit Profile",
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => EditEmployeeProfileScreen(
+                          employeeProfileModel: profileModel,
+                        ),
+                      ),
+                    ),
+                  ),
+                  PaddedElevatedButton(
+                    buttonText: "Logout",
+                    onPressed: _logout,
+                  ),
+                ],
               ),
             ],
           ),

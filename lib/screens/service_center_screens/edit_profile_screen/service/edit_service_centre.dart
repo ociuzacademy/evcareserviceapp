@@ -13,11 +13,21 @@ Future<EditProfileResponseModel> editServiceCentre({
   String? address,
   String? email,
   String? phoneNumber,
-  // String? password,
+  String? password,
   // Location? location,
   File? image,
 }) async {
   try {
+    if (userName == null &&
+        serviceCentreName == null &&
+        address == null &&
+        email == null &&
+        phoneNumber == null &&
+        password == null &&
+        image == null) {
+      throw Exception("There is nothing to update");
+    }
+
     // Create a multipart request
     var request =
         http.MultipartRequest("PATCH", Uri.parse(Urls.editProfileUrl));
@@ -30,7 +40,7 @@ Future<EditProfileResponseModel> editServiceCentre({
     if (address != null) request.fields['address'] = address;
     if (email != null) request.fields['email'] = email;
     if (phoneNumber != null) request.fields['phone'] = phoneNumber;
-    // if (password != null) request.fields['password'] = password;
+    if (password != null) request.fields['password'] = password;
     // if (location != null) {
     //   request.fields['latitude'] = location.latitude.toString();
     //   request.fields['longitude'] = location.longitude.toString();

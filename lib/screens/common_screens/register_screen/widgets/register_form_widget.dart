@@ -12,9 +12,9 @@ import 'package:evcareserviceapp/common_widgets/rich_text_widget.dart';
 import 'package:evcareserviceapp/screens/common_screens/login_screen/views/login_screen.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/models/location.dart';
 import 'package:evcareserviceapp/screens/common_screens/register_screen/services/service_centre_registration_service.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/email_text_field.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/phone_number_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/address_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/email_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/phone_number_text_field.dart';
 import 'package:image_picker/image_picker.dart';
 
 class RegisterFormWidget extends StatefulWidget {
