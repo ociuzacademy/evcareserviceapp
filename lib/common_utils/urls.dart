@@ -36,6 +36,7 @@ class Urls {
   static const String completeRepairUrl = "$serviceUrl/employee_update_status/";
   static const String getEmplyeeProfileDetailsUrl =
       "$serviceUrl/employee_view_profile/";
+  static const String editEmplyeeProfileUrl = "$serviceUrl/update_employee/";
   static const String submitAttendanceUrl = "$serviceUrl/employee_attendance/";
   static const String getEmployeeAttendanceStatusUrl =
       "$serviceUrl/check_attendance/";

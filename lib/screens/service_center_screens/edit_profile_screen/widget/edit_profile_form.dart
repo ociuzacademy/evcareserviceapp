@@ -5,9 +5,10 @@ import 'package:evcareserviceapp/common_utils/helper.dart';
 import 'package:evcareserviceapp/common_utils/urls.dart';
 import 'package:evcareserviceapp/common_widgets/form_text_field.dart';
 import 'package:evcareserviceapp/common_widgets/padded_elevated_button.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/address_text_field.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/email_text_field.dart';
-import 'package:evcareserviceapp/screens/common_screens/register_screen/widgets/phone_number_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/address_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/email_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/password_text_field.dart';
+import 'package:evcareserviceapp/common_widgets/phone_number_text_field.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/edit_profile_screen/service/edit_service_centre.dart';
 import 'package:evcareserviceapp/screens/service_center_screens/home_screen/views/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   late TextEditingController _addressController = TextEditingController();
   late TextEditingController _emailController = TextEditingController();
   late TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   bool _isEditing = false;
   File? _selectedImage;
@@ -46,6 +48,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
     _addressController.dispose();
     _emailController.dispose();
     _phoneNumberController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -163,16 +166,31 @@ class _EditProfileFormState extends State<EditProfileForm> {
                 children: [
                   GestureDetector(
                     onTap: _pickImage,
-                    child: CircleAvatar(
-                      backgroundImage: _selectedImage != null
-                          ? FileImage(_selectedImage!)
-                          : widget.profileModel.image != null
-                              ? NetworkImage(
-                                  "${Urls.baseUrl}${widget.profileModel.image!}",
-                                )
-                              : null,
-                      backgroundColor: Colors.grey,
-                      radius: 90,
+                    child: Container(
+                      width: 360, // Adjust width as needed
+                      height: 180, // Adjust height as needed
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        image: _selectedImage != null
+                            ? DecorationImage(
+                                image: FileImage(_selectedImage!),
+                                fit: BoxFit.cover,
+                              )
+                            : widget.profileModel.image != null
+                                ? DecorationImage(
+                                    image: NetworkImage(
+                                      "${Urls.baseUrl}${widget.profileModel.image!}",
+                                    ),
+                                  )
+                                : null,
+                        border: Border.all(
+                          color: Colors.green,
+                          width: 0.5,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                      ),
                       child: _selectedImage == null
                           ? const Icon(Icons.camera_alt,
                               color: Colors.white, size: 40)
@@ -255,6 +273,20 @@ class _EditProfileFormState extends State<EditProfileForm> {
                           ),
                           SizedBox(
                             height: screenSize.height * 0.01,
+                          ),
+                          PasswordTextField(
+                            hintText: 'Enter your password',
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter password';
+                              }
+
+                              if (value.length < 6) {
+                                return 'Password must have at least 6 characters';
+                              }
+                              return null;
+                            },
+                            passwordTextController: _passwordController,
                           ),
                           SizedBox(
                             height: screenSize.height * 0.01,

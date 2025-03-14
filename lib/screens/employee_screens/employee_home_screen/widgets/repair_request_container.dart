@@ -17,7 +17,7 @@ class RepairRequestContainer extends StatelessWidget {
     var screenSize = MediaQuery.of(context).size;
 
     return Container(
-      height: screenSize.height * 0.16,
+      height: screenSize.height * 0.125,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         border: Border.all(
