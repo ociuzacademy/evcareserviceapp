@@ -33,7 +33,7 @@ class PurchaseHistoryTile extends StatelessWidget {
         vertical: screenSize.height * 0.025,
       ),
       width: double.infinity,
-      height: screenSize.height * 0.21725,
+      height: screenSize.height * 0.26725,
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(10),
