@@ -77,29 +77,37 @@ class _EmployeesDetailsListWidgetState
 
         // Success State
         List<EmployeeDetailsModel> employees = snapshot.data!;
-        return SliverList.list(
-          children: [
-            const Text(
-              "Employees present today",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        return SliverToBoxAdapter(
+          child: Column(
+            children: [
+              const Text(
+                "Employees present today",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            ListView.separated(
-              itemBuilder: (context, index) => EmployeeContainer(
-                employeeName: employees[index].name,
-                email: employees[index].email,
-                phoneNumber: employees[index].phoneNumber,
-              ),
-              separatorBuilder: (context, index) => SizedBox(
+              SizedBox(
                 height: screenSize.height * 0.01,
               ),
-              itemCount: employees.length,
-            )
-          ],
+              ListView.separated(
+                shrinkWrap: true, // Add this to prevent infinite height issue
+                physics:
+                    const NeverScrollableScrollPhysics(), // Disable internal scrolling
+                itemBuilder: (context, index) => EmployeeContainer(
+                  employeeName: employees[index].name,
+                  email: employees[index].email,
+                  phoneNumber: employees[index].phoneNumber,
+                ),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: screenSize.height * 0.01,
+                ),
+                itemCount: employees.length,
+              ),
+            ],
+          ),
         );
       },
     );
